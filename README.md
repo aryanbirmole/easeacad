@@ -1,16 +1,25 @@
-# React + Vite
+# EaseAcad — Smart Study Planner & Notes Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A centralized web app to help college students manage notes, tasks, and deadlines in one place — instead of switching between multiple apps.
 
-Currently, two official plugins are available:
+Field Project — BSc IT / BVoc SD, Semester III.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Problem
 
-## React Compiler
+Students juggle notes, assignments, and deadlines across multiple disconnected apps, leading to disorganization and missed deadlines. EaseAcad brings these into one platform.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Planned Features
 
-## Expanding the ESLint configuration
+- Dashboard, Subject Management, Notes Organizer, Task Management, Search, Progress Tracking, Attachments
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+React (Vite), Node.js, Express.js, MySQL
+
+## Status
+
+🚧 Early development — frontend routing, login/signup UI, and dashboard shell in progress. Backend and database not yet connected.
+
+## Author
+
+Aryan Birmole (UID: 25BIT008)
