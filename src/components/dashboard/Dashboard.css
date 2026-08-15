@@ -1,0 +1,47 @@
+.dashboard {
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+.dashboard-header h1 {
+  margin-bottom: 0.25rem;
+}
+
+.dashboard-summary {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.summary-card {
+  background: #f4f4f8;
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  flex: 1;
+}
+
+.summary-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.summary-card p {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.dashboard-upcoming ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dashboard-upcoming li {
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+}
