@@ -2,7 +2,7 @@
 
 A centralized web app to help college students manage notes, tasks, and deadlines in one place — instead of switching between multiple apps.
 
-Field Project — BSc IT / BVoc SD, Semester III.
+Field Project — BSc IT Semester III.
 
 ## Problem
 
@@ -22,4 +22,4 @@ React (Vite), Node.js, Express.js, MySQL
 
 ## Author
 
-Aryan Birmole (UID: 25BIT008)
+Aryan Birmole

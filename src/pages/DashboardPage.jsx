@@ -8,9 +8,7 @@ function DashboardPage() {
       <Navbar />
       <div style={{ display: 'flex' }}>
         <Sidebar />
-        <div style={{ flex: 1, padding: '24px' }}>
-          <h1>EaseAcad</h1>
-          <p>EaseAcad: A Centralized Solution to your Academic Stress!!</p>
+        <div style={{ flex: 1, padding: '26px' }}>
           <Dashboard />
         </div>
       </div>
