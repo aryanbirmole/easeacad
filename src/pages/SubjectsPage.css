@@ -1,0 +1,21 @@
+/* SubjectsPage.css */
+.subjects-page {
+  padding: 24px;
+}
+
+.subjects-page h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 4px;
+}
+
+.subjects-subtitle {
+  color: var(--color-text-muted);
+  margin-bottom: 24px;
+}
+
+.subjects-empty {
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
