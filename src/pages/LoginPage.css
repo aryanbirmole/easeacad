@@ -37,6 +37,16 @@
   gap: 16px;
 }
 
+.auth-error {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
