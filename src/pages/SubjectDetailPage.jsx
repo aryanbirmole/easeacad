@@ -10,6 +10,9 @@ import { getNotes, createNote } from '../api/notes';
 import { getTasks, updateTask, deleteTask } from '../api/tasks';
 import TasksSection from '../components/tasks/TasksSection';
 import TaskFormModal from '../components/tasks/TaskFormModal';
+import { getImportantDates, updateImportantDate, deleteImportantDate } from '../api/importantDates';
+import ImportantDatesSection from '../components/importantDates/ImportantDatesSection';
+import ImportantDateFormModal from '../components/importantDates/ImportantDateFormModal';
 
 function groupByTag(notes) {
   const groups = {};
@@ -28,22 +31,27 @@ function SubjectDetailPage() {
   const [subject, setSubject] = useState(null);
   const [notes, setNotes] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const [dates, setDates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [activeNote, setActiveNote] = useState(null);
   const [taskModalOpen, setTaskModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
-  const [activeNote, setActiveNote] = useState(null);
+  const [dateModalOpen, setDateModalOpen] = useState(false);
+  const [editingDate, setEditingDate] = useState(null);
 
   const fetchData = async () => {
     try {
-      const [subjectData, notesData, tasksData] = await Promise.all([
+      const [subjectData, notesData, tasksData, datesData] = await Promise.all([
         getSubjectById(id),
         getNotes(id),
         getTasks(id),
+        getImportantDates(id),
       ]);
       setSubject(subjectData);
       setNotes(notesData);
       setTasks(tasksData);
+      setDates(datesData);
     } catch (err) {
       console.error(err);
     } finally {
@@ -82,18 +90,43 @@ function SubjectDetailPage() {
   };
 
   const handleEditTask = (task) => {
-  setEditingTask(task);
-  setTaskModalOpen(true);
-};
+    setEditingTask(task);
+    setTaskModalOpen(true);
+  };
 
-const handleTaskSaved = (savedTask) => {
-  setTasks(prev => {
-    const exists = prev.some(t => t.id === savedTask.id);
-    return exists
-      ? prev.map(t => t.id === savedTask.id ? savedTask : t)
-      : [...prev, savedTask];
-  });
-};
+  const handleTaskSaved = (savedTask) => {
+    setTasks(prev => {
+      const exists = prev.some(t => t.id === savedTask.id);
+      return exists
+        ? prev.map(t => t.id === savedTask.id ? savedTask : t)
+        : [...prev, savedTask];
+    });
+  };
+
+  const handleToggleDate = async (date) => {
+    const newDone = !date.is_done;
+    await updateImportantDate(date.id, { is_done: newDone });
+    setDates(dates.map(d => d.id === date.id ? { ...d, is_done: newDone } : d));
+  };
+
+  const handleDeleteDate = async (dateId) => {
+    await deleteImportantDate(dateId);
+    setDates(dates.filter(d => d.id !== dateId));
+  };
+
+  const handleEditDate = (date) => {
+    setEditingDate(date);
+    setDateModalOpen(true);
+  };
+
+  const handleDateSaved = (savedDate) => {
+    setDates(prev => {
+      const exists = prev.some(d => d.id === savedDate.id);
+      return exists
+        ? prev.map(d => d.id === savedDate.id ? savedDate : d)
+        : [...prev, savedDate];
+    });
+  };
 
   const groupedNotes = groupByTag(notes);
 
@@ -144,6 +177,14 @@ const handleTaskSaved = (savedTask) => {
                 onAddClick={() => { setEditingTask(null); setTaskModalOpen(true); }}
               />
 
+              <ImportantDatesSection
+                dates={dates}
+                onToggle={handleToggleDate}
+                onDelete={handleDeleteDate}
+                onEdit={handleEditDate}
+                onAddClick={() => { setEditingDate(null); setDateModalOpen(true); }}
+              />
+
               <button
                 onClick={() => setShowAddModal(true)}
                 title="Add Note"
@@ -186,8 +227,16 @@ const handleTaskSaved = (savedTask) => {
           onClose={() => setTaskModalOpen(false)}
           onSaved={handleTaskSaved}
         />
-)}
-      
+      )}
+
+      {dateModalOpen && (
+        <ImportantDateFormModal
+          subjectId={id}
+          date={editingDate}
+          onClose={() => setDateModalOpen(false)}
+          onSaved={handleDateSaved}
+        />
+      )}
     </div>
   );
 }

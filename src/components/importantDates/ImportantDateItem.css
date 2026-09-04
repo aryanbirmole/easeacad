@@ -1,0 +1,56 @@
+.date-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-bottom: 8px;
+}
+
+.date-item.completed .date-title {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+.date-title {
+  flex: 1;
+  font-size: 14px;
+}
+
+.date-value {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.date-value.overdue {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.date-edit,
+.date-delete {
+  background: none;
+  border: none;
+  font-size: 15px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.date-delete {
+  font-size: 18px;
+}
+
+.date-edit:hover {
+  color: var(--color-primary);
+}
+
+.date-delete:hover {
+  color: var(--color-danger);
+}
+
+.date-item.completed .date-title {
+  color: var(--color-success);
+}
