@@ -6,7 +6,7 @@ function TaskGroup({ label, tasks, onToggle, onDelete, onEdit }) {
   if (tasks.length === 0) return null;
   return (
     <div className="task-group">
-      <h3 className="task-group-label">{label}</h3>
+      <h3 className={`task-group-label ${label === 'Completed' ? 'completed' : ''}`}>{label}</h3>
       {tasks.map(task => (
         <TaskItem key={task.id} task={task} onToggle={onToggle} onDelete={onDelete} onEdit={onEdit} />
       ))}
