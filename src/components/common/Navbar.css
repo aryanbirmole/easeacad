@@ -68,3 +68,61 @@
 .navbar-dropdown div:hover {
   background-color: var(--color-bg);
 }
+
+.navbar-search-wrapper {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+  margin: 0 1.5rem;
+}
+
+.navbar-search-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+}
+
+.navbar-search-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 100;
+  padding: 0.5rem;
+}
+
+.navbar-search-empty {
+  padding: 0.5rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.navbar-search-group h4 {
+  margin: 0.5rem 0 0.25rem 0;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.navbar-search-item {
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.navbar-search-item:hover {
+  background: var(--color-bg);
+}
+
+.navbar-search-context {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
