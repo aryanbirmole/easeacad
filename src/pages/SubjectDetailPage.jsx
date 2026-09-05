@@ -37,11 +37,12 @@ function SubjectDetailPage() {
   const [activeNote, setActiveNote] = useState(null);
   const [taskModalOpen, setTaskModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
+  const [loadError, setLoadError] = useState(false);
   const [dateModalOpen, setDateModalOpen] = useState(false);
   const [editingDate, setEditingDate] = useState(null);
 
   const fetchData = async () => {
-    try {
+  try {
       const [subjectData, notesData, tasksData, datesData] = await Promise.all([
         getSubjectById(id),
         getNotes(id),
@@ -52,8 +53,10 @@ function SubjectDetailPage() {
       setNotes(notesData);
       setTasks(tasksData);
       setDates(datesData);
+      setLoadError(false);
     } catch (err) {
       console.error(err);
+      setLoadError(true);
     } finally {
       setLoading(false);
     }

@@ -16,7 +16,16 @@ function ImportantDateItem({ date, onToggle, onDelete, onEdit }) {
         {new Date(date.event_date).toLocaleDateString()}
       </span>
       <button className="date-edit" onClick={() => onEdit(date)}>✎</button>
-      <button className="date-delete" onClick={() => onDelete(date.id)}>×</button>
+      <button
+        className="date-delete"
+        onClick={() => {
+          if (window.confirm("Delete this important date?")) {
+            onDelete(date.id);
+          }
+        }}
+      >
+        ×
+      </button>
     </div>
   );
 }

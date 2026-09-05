@@ -18,7 +18,16 @@ function TaskItem({ task, onToggle, onDelete, onEdit }) {
         </span>
       )}
       <button className="task-edit" onClick={() => onEdit(task)}>✎</button>
-      <button className="task-delete" onClick={() => onDelete(task.id)}>×</button>
+      <button
+        className="task-delete"
+        onClick={() => {
+          if (window.confirm("Delete this task?")) {
+            onDelete(task.id);
+          }
+        }}
+      >
+        ×
+      </button>
       </div>
   );
 }

@@ -41,7 +41,9 @@ function TaskFormModal({ subjectId, task, onClose, onSaved }) {
             type="date"
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
+            min={new Date().toISOString().split("T")[0]}          
           />
+
           <div className="modal-actions">
             <button type="button" onClick={onClose}>Cancel</button>
             <button type="submit">{isEdit ? 'Save Changes' : 'Add Task'}</button>
