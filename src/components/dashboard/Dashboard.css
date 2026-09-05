@@ -1,9 +1,14 @@
 .dashboard {
   font-family: sans-serif;
+  color: var(--color-text-main);
 }
 
 .dashboard-header h1 {
   margin-bottom: 0.25rem;
+}
+
+.dashboard-header p {
+  color: var(--color-text-muted);
 }
 
 .dashboard-summary {
@@ -13,8 +18,10 @@
 }
 
 .summary-card {
-  background: #f4f4f8;
-  border-radius: 10px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   padding: 1.5rem;
   text-align: center;
   flex: 1;
@@ -23,24 +30,83 @@
 .summary-card h3 {
   margin: 0 0 0.5rem 0;
   font-size: 0.9rem;
-  color: #555;
+  color: var(--color-text-muted);
 }
 
 .summary-card p {
   font-size: 1.8rem;
   font-weight: bold;
   margin: 0;
+  color: var(--color-primary);
 }
 
-.dashboard-upcoming ul {
+.dashboard-upcoming,
+.dashboard-this-week {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-upcoming h2,
+.dashboard-this-week h2 {
+  margin-top: 0;
+}
+
+.dashboard-this-week h3 {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.dashboard-upcoming ul,
+.dashboard-this-week ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.dashboard-upcoming li {
-  background: #fff;
-  border: 1px solid #eee;
+.dashboard-upcoming li,
+.dashboard-this-week li {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   padding: 0.75rem 1rem;
   margin-bottom: 0.5rem;
-  border-radius: 8px;
+}
+
+.dashboard-upcoming li.overdue,
+.dashboard-this-week li.overdue {
+  border-color: var(--color-danger);
+  background: #fef2f2;
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.load-error {
+  color: var(--color-danger);
+}
+
+.dashboard-upcoming li,
+.dashboard-this-week li {
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dashboard-upcoming li:hover,
+.dashboard-this-week li:hover {
+  background: #e5e7eb;
+  box-shadow: var(--shadow-card);
+}
+
+.summary-card {
+  cursor: default;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
 }
