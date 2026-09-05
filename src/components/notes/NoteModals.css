@@ -69,3 +69,61 @@
 .modal-actions button[type="button"]:hover {
   background-color: var(--color-bg);
 }
+
+.note-attachments {
+  margin: 1rem 0;
+  border-top: 1px solid var(--color-border);
+  padding-top: 1rem;
+}
+
+.note-attachments h3 {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: 0 0 0.5rem 0;
+}
+
+.note-attachments-empty {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.note-attachments-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.75rem 0;
+}
+
+.note-attachment-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.note-attachment-thumb {
+  max-width: 80px;
+  max-height: 80px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+}
+
+.note-attachment-delete {
+  background: none;
+  border: none;
+  color: var(--color-danger);
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.note-attachment-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.note-attachment-form input,
+.note-attachment-form select {
+  flex: 1;
+  min-width: 100px;
+}
