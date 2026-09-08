@@ -10,9 +10,6 @@ function Sidebar() {
       <NavLink to="/subjects" className={({ isActive }) => isActive ? 'sidebar-link active' : 'sidebar-link'}>
         Subjects
       </NavLink>
-      <NavLink to="/search" className={({ isActive }) => isActive ? 'sidebar-link active' : 'sidebar-link'}>
-        Search
-      </NavLink>
     </aside>
   );
 }
