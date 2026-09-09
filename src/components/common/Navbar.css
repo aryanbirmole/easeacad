@@ -79,6 +79,8 @@
 .navbar-search-input {
   width: 100%;
   padding: 0.5rem 0.75rem;
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: 0.9rem;
@@ -125,4 +127,33 @@
 .navbar-search-context {
   color: var(--color-text-muted);
   font-size: 0.85rem;
+}
+
+.navbar-theme-btn {
+  background: none;
+  border: 1px solid var(--color-border);
+  padding: 6px 10px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--color-text-main);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 768px) {
+  .navbar-search-wrapper {
+    max-width: 110px;
+    margin: 0 0.5rem;
+  }
+
+  .navbar-username {
+    display: none;
+  }
+
+  .navbar-theme-btn .theme-text {
+    display: none;
+    max-width: 20px;
+  }
 }

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import Sidebar from '../components/common/Sidebar';
+import '../styles/layout.css';
+import './SubjectDetailPage.css';
 import NoteCard from '../components/notes/NoteCard';
 import NoteFormModal from '../components/notes/NoteFormModal';
 import NoteViewModal from '../components/notes/NoteViewModal';
@@ -33,6 +35,7 @@ function SubjectDetailPage() {
   const [tasks, setTasks] = useState([]);
   const [dates, setDates] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [activeNote, setActiveNote] = useState(null);
   const [taskModalOpen, setTaskModalOpen] = useState(false);
@@ -135,10 +138,10 @@ function SubjectDetailPage() {
 
   return (
     <div>
-      <Navbar />
-      <div style={{ display: 'flex' }}>
-        <Sidebar />
-        <div style={{ flex: 1, padding: '26px', position: 'relative' }}>
+      <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+      <div className="page-layout">
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <div className="page-content page-content--relative">
           <button
             onClick={() => navigate('/subjects')}
             style={{
@@ -153,7 +156,7 @@ function SubjectDetailPage() {
             <p>Loading...</p>
           ) : subject ? (
             <>
-              <h1>{subject.name}</h1>
+              <h1 className="subject-detail-heading">{subject.name}</h1>
 
               {notes.length === 0 ? (
                 <p style={{ color: 'var(--color-text-muted)', fontSize: '14px' }}>

@@ -1,4 +1,3 @@
-/* SubjectsPage.css */
 .subjects-page {
   padding: 24px;
 }
@@ -18,4 +17,11 @@
 .subjects-empty {
   color: var(--color-text-muted);
   font-size: 14px;
+}
+
+body.dark-theme,
+.dark-theme body,
+:root.dark-theme body {
+  background-color: var(--color-bg);
+  color: var(--color-text-muted);
 }

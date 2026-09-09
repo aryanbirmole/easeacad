@@ -13,9 +13,20 @@
   padding: 0;
 }
 
-.subject-detail-page h1 {
-  font-size: 26px;
+.subject-detail-heading {
+  font-size: 32px;
   font-weight: 700;
   color: var(--color-text-main);
-  margin-bottom: 8px;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+@media (max-width: 768px) {
+  .subject-detail-heading {
+    font-size: 20px;
+  }
+
+  .subject-detail-page {
+    padding: 16px;
+  }
 }

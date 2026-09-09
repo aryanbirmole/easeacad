@@ -4,12 +4,16 @@ import { useAuth } from '../../context/AuthContext';
 import { searchAll } from '../../api/search';
 import ChangePasswordModal from './ChangePasswordModal';
 import ChangeNameModal from './ChangeNameModal';
+import '../../styles/layout.css';
 import './Navbar.css';
 
-function Navbar() {
+function Navbar({ onMenuClick }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [showChangeName, setShowChangeName] = useState(false);
+  
+  const [isDark, setIsDark] = useState(() => document.documentElement.getAttribute('data-theme') === 'dark');
+  
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -17,28 +21,39 @@ function Navbar() {
   const [searchResults, setSearchResults] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
 
-    useEffect(() => {
-  if (searchQuery.trim() === '') {
-    setSearchResults(null);
-    setIsSearching(false);
-    return;
+  const handleThemeToggle = () => {
+  const isCurrentlyDark = document.documentElement.classList.toggle('dark-theme');
+  if (isCurrentlyDark) {
+    localStorage.setItem('theme', 'dark');
+    setIsDark(true);
+  } else {
+    localStorage.setItem('theme', 'light');
+    setIsDark(false);
   }
+};
 
-  setIsSearching(true);
-
-  const timer = setTimeout(async () => {
-    try {
-      const data = await searchAll(searchQuery.trim());
-      setSearchResults(data);
-    } catch (err) {
-      console.error(err);
+  useEffect(() => {
+    if (searchQuery.trim() === '') {
       setSearchResults(null);
-    } finally {
       setIsSearching(false);
+      return;
     }
-  }, 300);
 
-  return () => clearTimeout(timer);
+    setIsSearching(true);
+
+    const timer = setTimeout(async () => {
+      try {
+        const data = await searchAll(searchQuery.trim());
+        setSearchResults(data);
+      } catch (err) {
+        console.error(err);
+        setSearchResults(null);
+      } finally {
+        setIsSearching(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
   }, [searchQuery]);
 
   const handleResultClick = (subjectId) => {
@@ -64,6 +79,7 @@ function Navbar() {
 
   return (
     <nav className="navbar">
+      <button className="hamburger-btn" onClick={onMenuClick}>☰</button>
       <span className="navbar-title">EaseAcad</span>
 
       <div className="navbar-search-wrapper">
@@ -132,22 +148,30 @@ function Navbar() {
         )}
       </div>
 
-      <div className="navbar-profile-wrapper">
-        <div className="navbar-profile" onClick={() => setShowDropdown(!showDropdown)}>
-          <span className="navbar-avatar">👤</span>
-          <span className="navbar-username">{user?.name}</span>
-        </div>
-        {showDropdown && (
-          <div className="navbar-dropdown">
-            <div onClick={() => { setShowChangeName(true); setShowDropdown(false); }}>
-              Change Name
-            </div>
-            <div onClick={() => { setShowChangePassword(true); setShowDropdown(false); }}>
-              Change Password
-            </div>
-            <div onClick={handleLogout}>Log out</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+
+        <button onClick={handleThemeToggle} className="navbar-theme-btn">
+          <span>{isDark ? '☀️' : '🌙'}</span>
+          <span className="theme-text">{isDark ? 'Light' : 'Dark'}</span>
+        </button>
+
+        <div className="navbar-profile-wrapper">
+          <div className="navbar-profile" onClick={() => setShowDropdown(!showDropdown)}>
+            <span className="navbar-avatar">👤</span>
+            <span className="navbar-username">{user?.name}</span>
           </div>
-        )}
+          {showDropdown && (
+            <div className="navbar-dropdown">
+              <div onClick={() => { setShowChangeName(true); setShowDropdown(false); }}>
+                Change Name
+              </div>
+              <div onClick={() => { setShowChangePassword(true); setShowDropdown(false); }}>
+                Change Password
+              </div>
+              <div onClick={handleLogout}>Log out</div>
+            </div>
+          )}
+        </div>
       </div>
 
       {showChangePassword && (

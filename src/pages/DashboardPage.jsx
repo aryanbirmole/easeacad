@@ -1,14 +1,17 @@
 import Navbar from '../components/common/Navbar';
 import Sidebar from '../components/common/Sidebar';
+import { useState } from 'react';
 import Dashboard from '../components/dashboard/Dashboard';
+import '../styles/layout.css';
 
 function DashboardPage() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div>
-      <Navbar />
-      <div style={{ display: 'flex' }}>
-        <Sidebar />
-        <div style={{ flex: 1, padding: '26px' }}>
+      <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+      <div className="page-layout">
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <div className="page-content">
           <Dashboard />
         </div>
       </div>

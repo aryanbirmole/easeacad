@@ -1,13 +1,31 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../components/common/Navbar';
 import Sidebar from '../components/common/Sidebar';
+import '../styles/layout.css';
 import SubjectCard from '../components/subjects/SubjectCard';
 import SubjectForm from '../components/subjects/SubjectForm';
 import { getSubjects, createSubject, deleteSubject } from '../api/subjects';
+import './SubjectsPage.css';
 
 function SubjectsPage() {
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // 1. Initialize state from localStorage so it remembers your choice across pages
+const [isDark, setIsDark] = useState(() => {
+  return localStorage.getItem('theme') === 'dark';
+});
+
+// 2. Sync with the DOM and save to localStorage whenever it changes
+useEffect(() => {
+  if (isDark) {
+    document.documentElement.classList.add('dark-theme');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.documentElement.classList.remove('dark-theme');
+    localStorage.setItem('theme', 'light');
+  }
+  }, [isDark]);
 
   const fetchSubjects = async () => {
     try {

@@ -12,3 +12,15 @@
   --radius-lg: 12px;
   --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
+
+:root.dark-theme {
+  --color-primary: #6366f1;
+  --color-primary-hover: #818cf8;
+  --color-text-main: #f9fafb;
+  --color-text-muted: #9ca3af;
+  --color-border: #374151;
+  --color-bg: #121212;
+  --color-white: #1f2937;
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+

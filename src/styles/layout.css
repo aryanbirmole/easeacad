@@ -1,0 +1,58 @@
+.page-layout {
+  display: flex;
+}
+
+.page-content {
+  flex: 1;
+  padding: 26px;
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+}
+
+.page-content--relative {
+  position: relative;
+}
+
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-text-main);
+}
+
+.sidebar-overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: block;
+  }
+
+  .sidebar-overlay.active {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 150;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-main);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  color: var(--color-text-main);
+}
+
+[data-theme='dark'] body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+}
