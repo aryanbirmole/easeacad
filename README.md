@@ -1,25 +1,40 @@
-# EaseAcad — Smart Study Planner & Notes Management System
+# EaseAcad — Client (Frontend)
 
-A centralized web app to help college students manage notes, tasks, and deadlines in one place — instead of switching between multiple apps.
+[![Live Demo]:(https://easeacad.vercel.app)
 
-Field Project — BSc IT Semester III.
+> A centralized study workspace built for college students to manage notes, academic tasks, and deadlines in one place.
 
-## Problem
+EaseAcad solves study workflow fragmentation by organizing course materials into subject-centric spaces, combining lecture notes, contextual links, prioritized task lists, and milestone tracking.
 
-Students juggle notes, assignments, and deadlines across multiple disconnected apps, leading to disorganization and missed deadlines. EaseAcad brings these into one platform.
+- **Project:** Field Project — Semester III
+- **Program:** BSc IT / BVoc Software Development
+- **Author:** Aryan Birmole (UID: 25BIT008)
+- **Backend API Repository:** [aryanbirmole/easeacad-backend](https://github.com/aryanbirmole/easeacad-backend)
 
-## Planned Features
+---
 
-- Dashboard, Subject Management, Notes Organizer, Task Management, Search, Progress Tracking, Attachments
+## Key Features
+
+- **Subject Hubs:** Dedicated workspaces grouping notes, assignments, and deadlines by course.
+- **Notes & Reference Links:** Plain-text and markdown note-taking with direct URL attachments.
+- **Grouped Task Tracker:** Automatic urgency categorization (*Overdue*, *Due Today*, *Upcoming*, *Completed*) with quick status toggles.
+- **Important Dates:** Target-date tracking for exams, project submissions, and viva milestones.
+- **Aggregated Dashboard:** Live overview of weekly priorities, pending task counts, and immediate subject navigation.
+- **Instant Search:** Debounced global search across subjects, notes, tasks, and deadlines from the top navigation bar.
+
+---
 
 ## Tech Stack
 
-React (Vite), Node.js, Express.js, MySQL
+- **Framework:** React 18 (Vite)
+- **Routing:** React Router
+- **Styling:** Vanilla CSS with centralized design tokens (`variables.css`)
+- **State & Networking:** React Hooks (`useState`, `useEffect`), Browser Fetch API
+- **Deployment:** Vercel
 
-## Status
+---
 
-🚧 Early development — frontend routing, login/signup UI, and dashboard shell in progress. Backend and database not yet connected.
+## Roadmap
 
-## Author
-
-Aryan Birmole
+- **Web Share Integration:** Fast external note sharing and revision export using the Web Share API.
+- **Calendar Matrix View:** Visual calendar grid for semester-wide deadline planning.
