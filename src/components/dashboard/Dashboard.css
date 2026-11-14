@@ -77,10 +77,21 @@
   margin-bottom: 0.5rem;
 }
 
+.dashboard-task-list li {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+}
+
+.dashboard-task-list li + li {
+  border-top: 1px solid var(--color-border);
+}
+
 .dashboard-upcoming li.overdue,
 .dashboard-this-week li.overdue {
   border-color: var(--color-danger);
-  background: #fef2f2;
+  background: var(--color-danger-bg);
   color: var(--color-danger);
   font-weight: 600;
 }
@@ -97,7 +108,7 @@
 
 .dashboard-upcoming li:hover,
 .dashboard-this-week li:hover {
-  background: #e5e7eb;
+  background: var(--color-hover-bg);
   box-shadow: var(--shadow-card);
 }
 
@@ -108,5 +119,5 @@
 
 .summary-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-card-hover);
 }

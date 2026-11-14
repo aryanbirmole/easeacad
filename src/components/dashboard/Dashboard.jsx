@@ -136,7 +136,7 @@ function Dashboard() {
         {thisWeek.tasks.length === 0 ? (
           <p>No tasks due this week.</p>
         ) : (
-          <ul>
+          <ul className="dashboard-task-list">
             {thisWeek.tasks.map((task) => (
               <li
                 key={task.id}
