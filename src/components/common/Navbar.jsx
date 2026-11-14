@@ -11,26 +11,13 @@ function Navbar({ onMenuClick }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [showChangeName, setShowChangeName] = useState(false);
-  
-  const [isDark, setIsDark] = useState(() => document.documentElement.getAttribute('data-theme') === 'dark');
-  
+
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
-
-  const handleThemeToggle = () => {
-  const isCurrentlyDark = document.documentElement.classList.toggle('dark-theme');
-  if (isCurrentlyDark) {
-    localStorage.setItem('theme', 'dark');
-    setIsDark(true);
-  } else {
-    localStorage.setItem('theme', 'light');
-    setIsDark(false);
-  }
-};
 
   useEffect(() => {
     if (searchQuery.trim() === '') {
@@ -149,12 +136,6 @@ function Navbar({ onMenuClick }) {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-
-        <button onClick={handleThemeToggle} className="navbar-theme-btn">
-          <span>{isDark ? '☀️' : '🌙'}</span>
-          <span className="theme-text">{isDark ? 'Light' : 'Dark'}</span>
-        </button>
-
         <div className="navbar-profile-wrapper">
           <div className="navbar-profile" onClick={() => setShowDropdown(!showDropdown)}>
             <span className="navbar-avatar">👤</span>

@@ -35,6 +35,24 @@
   border-color: var(--color-primary);
 }
 
+.note-modal input,
+.note-modal textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  color: var(--color-text-main);
+  color-scheme: inherit;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font: inherit;
+}
+
+.note-modal input:focus,
+.note-modal textarea:focus {
+  border-color: var(--color-primary);
+}
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;

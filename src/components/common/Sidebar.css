@@ -28,6 +28,30 @@
   color: var(--color-white);
 }
 
+.sidebar-theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: auto;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-white);
+  color: var(--color-text-main);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar-theme-btn:hover {
+  background-color: var(--color-bg);
+}
+
 @media (max-width: 768px) {
   .sidebar {
     position: fixed;

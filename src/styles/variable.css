@@ -5,22 +5,29 @@
   --color-text-muted: #6b7280;
   --color-border: #d1d5db;
   --color-bg: #f4f6f8;
+  --color-hover-bg: #e5e7eb;
   --color-white: #ffffff;
   --color-danger: #dc2626;
+  --color-danger-bg: #fef2f2;
   --color-success: #16a34a;
   --radius-md: 8px;
   --radius-lg: 12px;
   --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 6px 24px rgba(0, 0, 0, 0.12);
 }
 
-:root.dark-theme {
+:root[data-theme='dark'] {
   --color-primary: #6366f1;
   --color-primary-hover: #818cf8;
   --color-text-main: #f9fafb;
   --color-text-muted: #9ca3af;
   --color-border: #374151;
   --color-bg: #121212;
+  --color-hover-bg: #303a4b;
   --color-white: #1f2937;
+  --color-danger: #f87171;
+  --color-danger-bg: #3f1d24;
   --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 6px 24px rgba(0, 0, 0, 0.4);
 }
 

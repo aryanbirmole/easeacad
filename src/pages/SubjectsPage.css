@@ -19,9 +19,7 @@
   font-size: 14px;
 }
 
-body.dark-theme,
-.dark-theme body,
-:root.dark-theme body {
+[data-theme='dark'] body {
   background-color: var(--color-bg);
   color: var(--color-text-muted);
 }

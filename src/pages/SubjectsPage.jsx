@@ -10,22 +10,7 @@ import './SubjectsPage.css';
 function SubjectsPage() {
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // 1. Initialize state from localStorage so it remembers your choice across pages
-const [isDark, setIsDark] = useState(() => {
-  return localStorage.getItem('theme') === 'dark';
-});
-
-// 2. Sync with the DOM and save to localStorage whenever it changes
-useEffect(() => {
-  if (isDark) {
-    document.documentElement.classList.add('dark-theme');
-    localStorage.setItem('theme', 'dark');
-  } else {
-    document.documentElement.classList.remove('dark-theme');
-    localStorage.setItem('theme', 'light');
-  }
-  }, [isDark]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const fetchSubjects = async () => {
     try {
@@ -54,10 +39,10 @@ useEffect(() => {
 
   return (
     <div>
-      <Navbar />
-      <div style={{ display: 'flex' }}>
-        <Sidebar />
-        <div style={{ flex: 1, padding: '26px' }}>
+      <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+      <div className="page-layout">
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <div className="page-content">
           <h1>Subjects</h1>
           <p style={{ color: 'var(--color-text-muted)', marginBottom: '24px' }}>
             Manage your subjects
