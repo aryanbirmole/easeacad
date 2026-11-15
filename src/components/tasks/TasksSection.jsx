@@ -1,4 +1,5 @@
 import { groupTasks } from '../../utils/groupTasks';
+import Icon from '../common/Icon';
 import TaskItem from './TaskItem';
 import './TasksSection.css';
 
@@ -6,7 +7,7 @@ function TaskGroup({ label, tasks, onToggle, onDelete, onEdit }) {
   if (tasks.length === 0) return null;
   return (
     <div className="task-group">
-      <h3 className={`task-group-label ${label === 'Completed' ? 'completed' : ''}`}>{label}</h3>
+      <h3 className={`task-group-label task-group-label--${label.toLowerCase().replace(/\s+/g, '-')}`}>{label}</h3>
       {tasks.map(task => (
         <TaskItem key={task.id} task={task} onToggle={onToggle} onDelete={onDelete} onEdit={onEdit} />
       ))}
@@ -14,15 +15,16 @@ function TaskGroup({ label, tasks, onToggle, onDelete, onEdit }) {
   );
 }
 
-function TasksSection({ tasks, onToggle, onDelete, onEdit, onAddClick }) {
+function TasksSection({ tasks, onToggle, onDelete, onEdit, onAddClick, actionError }) {
   const { overdue, dueToday, upcoming, completed } = groupTasks(tasks);
 
   return (
     <div className="tasks-section">
       <div className="tasks-header">
         <h2>Tasks</h2>
-        <button className="add-task-btn" onClick={onAddClick}>+ Add Task</button>
+        <button className="add-task-btn" onClick={onAddClick}><Icon name="plus" size={16} /> Add Task</button>
       </div>
+      {actionError && <p className="task-action-error" role="alert">{actionError}</p>}
 
       {tasks.length === 0 ? (
         <p>No tasks yet.</p>

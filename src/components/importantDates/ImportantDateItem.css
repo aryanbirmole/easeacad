@@ -1,5 +1,7 @@
 .date-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto 32px 32px;
+  grid-template-areas: "check title date edit delete";
   align-items: center;
   gap: 12px;
   padding: 10px 14px;
@@ -7,21 +9,25 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   margin-bottom: 8px;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
 }
 
 .date-item.completed .date-title {
-  text-decoration: line-through;
-  color: var(--color-text-muted);
+  color: var(--color-text-main);
 }
 
 .date-title {
-  flex: 1;
+  grid-area: title;
+  min-width: 0;
   font-size: 14px;
+  overflow-wrap: anywhere;
 }
 
 .date-value {
+  grid-area: date;
   font-size: 12px;
   color: var(--color-text-muted);
+  white-space: nowrap;
 }
 
 .date-value.overdue {
@@ -31,26 +37,102 @@
 
 .date-edit,
 .date-delete {
-  background: none;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
   border: none;
-  font-size: 15px;
+  border-radius: var(--radius-md);
   color: var(--color-text-muted);
   cursor: pointer;
-  line-height: 1;
+  transition: background-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
+}
+
+.date-edit {
+  grid-area: edit;
 }
 
 .date-delete {
-  font-size: 18px;
+  grid-area: delete;
+}
+
+.date-edit:hover,
+.date-delete:hover {
+  background-color: var(--color-hover-bg);
+  transform: translateY(-1px);
 }
 
 .date-edit:hover {
-  color: var(--color-primary);
+  background-color: var(--color-ui-accent-secondary-soft);
+  color: var(--color-ui-accent-secondary);
 }
 
 .date-delete:hover {
   color: var(--color-danger);
 }
 
-.date-item.completed .date-title {
-  color: var(--color-success);
+.date-item input[type='checkbox'] {
+  grid-area: check;
+  appearance: none;
+  -webkit-appearance: none;
+  display: grid;
+  place-content: center;
+  box-sizing: border-box;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  border: 1.5px solid var(--color-text-muted);
+  border-radius: 6px;
+  background-color: var(--color-white);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.date-item input[type='checkbox']::after {
+  content: '';
+  width: 5px;
+  height: 9px;
+  border: solid var(--color-on-date-check);
+  border-width: 0 2px 2px 0;
+  opacity: 0;
+  transform: translateY(-1px) rotate(45deg) scale(0.75);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.date-item input[type='checkbox']:checked {
+  border-color: var(--color-accent-lime);
+  background-color: var(--color-accent-lime);
+}
+
+.date-item input[type='checkbox']:checked::after {
+  opacity: 1;
+  transform: translateY(-1px) rotate(45deg) scale(1);
+}
+
+.date-item input[type='checkbox']:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+@media (max-width: 560px) {
+  .date-item {
+    grid-template-columns: 24px minmax(0, 1fr) 32px 32px;
+    grid-template-areas:
+      "check title edit delete"
+      ". date . .";
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .date-value:not(:empty) {
+    margin-top: -4px;
+  }
+
+  .date-item input[type='checkbox'] {
+    width: 24px;
+    height: 24px;
+    justify-self: center;
+  }
 }

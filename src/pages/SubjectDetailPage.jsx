@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import Sidebar from '../components/common/Sidebar';
+import Icon from '../components/common/Icon';
 import '../styles/layout.css';
 import './SubjectDetailPage.css';
 import NoteCard from '../components/notes/NoteCard';
@@ -43,6 +44,8 @@ function SubjectDetailPage() {
   const [loadError, setLoadError] = useState(false);
   const [dateModalOpen, setDateModalOpen] = useState(false);
   const [editingDate, setEditingDate] = useState(null);
+  const [taskActionError, setTaskActionError] = useState('');
+  const taskToggleRequests = useRef(new Set());
 
   const fetchData = async () => {
   try {
@@ -85,9 +88,22 @@ function SubjectDetailPage() {
   };
 
   const handleToggleTask = async (task) => {
+    if (taskToggleRequests.current.has(task.id)) return;
+
     const newStatus = task.status === 'completed' ? 'pending' : 'completed';
-    await updateTask(task.id, { status: newStatus });
-    setTasks(tasks.map(t => t.id === task.id ? { ...t, status: newStatus } : t));
+    taskToggleRequests.current.add(task.id);
+    setTaskActionError('');
+    setTasks((prev) => prev.map((t) => t.id === task.id ? { ...t, status: newStatus } : t));
+
+    try {
+      await updateTask(task.id, { status: newStatus });
+    } catch (err) {
+      console.error(err);
+      setTasks((prev) => prev.map((t) => t.id === task.id ? { ...t, status: task.status } : t));
+      setTaskActionError('Could not update task completion. Please try again.');
+    } finally {
+      taskToggleRequests.current.delete(task.id);
+    }
   };
 
   const handleDeleteTask = async (taskId) => {
@@ -143,13 +159,11 @@ function SubjectDetailPage() {
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <div className="page-content page-content--relative">
           <button
+            className="back-button"
             onClick={() => navigate('/subjects')}
-            style={{
-              background: 'none', border: 'none', color: 'var(--color-primary)',
-              cursor: 'pointer', marginBottom: '16px', padding: 0, fontSize: '14px',
-            }}
           >
-            ← Back to Subjects
+            <Icon name="arrowLeft" size={16} />
+            Back to Subjects
           </button>
 
           {loading ? (
@@ -181,6 +195,7 @@ function SubjectDetailPage() {
                 onDelete={handleDeleteTask}
                 onEdit={handleEditTask}
                 onAddClick={() => { setEditingTask(null); setTaskModalOpen(true); }}
+                actionError={taskActionError}
               />
 
               <ImportantDatesSection
@@ -192,17 +207,12 @@ function SubjectDetailPage() {
               />
 
               <button
+                className="add-note-btn"
                 onClick={() => setShowAddModal(true)}
                 title="Add Note"
-                style={{
-                  position: 'fixed', bottom: '32px', right: '32px',
-                  width: '56px', height: '56px', borderRadius: '50%',
-                  backgroundColor: 'var(--color-primary)', color: 'var(--color-white)',
-                  border: 'none', fontSize: '28px', cursor: 'pointer',
-                  boxShadow: 'var(--shadow-card)',
-                }}
+                aria-label="Add note"
               >
-                +
+                <Icon name="plus" size={22} />
               </button>
             </>
           ) : (
