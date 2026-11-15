@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { getDashboardStats, getUpcoming, getThisWeek } from '../../api/dashboard';
+import Icon from '../common/Icon';
 import './Dashboard.css';
 
 function isOverdue(dateString) {
@@ -95,17 +96,17 @@ function Dashboard() {
 
       <div className="dashboard-summary">
         <div className="summary-card">
-          <h3>📚 Subjects</h3>
+          <h3><Icon name="bookOpen" /><span>Subjects</span></h3>
           <p>{stats.total_subjects}</p>
         </div>
 
         <div className="summary-card">
-          <h3>📝 Pending Tasks</h3>
+          <h3><Icon name="listChecks" /><span>Pending Tasks</span></h3>
           <p>{stats.pending_tasks}</p>
         </div>
 
         <div className="summary-card">
-          <h3>⚠️ Overdue Tasks</h3>
+          <h3><Icon name="alertTriangle" /><span>Overdue Tasks</span></h3>
           <p>{stats.overdue_tasks}</p>
         </div>
       </div>

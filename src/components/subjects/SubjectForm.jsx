@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import Icon from '../common/Icon';
 import './SubjectForm.css';
 
-const COLOR_OPTIONS = ['#4f46e5', '#22c55e', '#f59e0b', '#ef4444', '#06b6d4', '#a855f7'];
+const COLOR_OPTIONS = ['#dc4c4c', '#e58a35', '#d2ad24', '#4d9b62', '#3985c6', '#8054b8', '#c34f91'];
 
 function SubjectForm({ onAdd }) {
   const [name, setName] = useState('');
@@ -34,12 +35,14 @@ function SubjectForm({ onAdd }) {
             key={c}
             className={`color-dot ${color === c ? 'selected' : ''}`}
             style={{ backgroundColor: c }}
+            aria-label={`Use ${c} for this subject`}
+            aria-pressed={color === c}
             onClick={() => setColor(c)}
           />
         ))}
       </div>
       <button type="submit" className="subject-form-submit" disabled={loading}>
-        {loading ? 'Adding...' : '+ Add Subject'}
+        {loading ? 'Adding...' : <><Icon name="plus" size={16} /> Add Subject</>}
       </button>
     </form>
   );

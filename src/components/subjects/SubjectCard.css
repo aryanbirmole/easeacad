@@ -10,11 +10,12 @@
   border-radius: var(--radius-md);
   margin-bottom: 10px;
   cursor: pointer;
-  transition: box-shadow 0.15s ease;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
 }
 
 .subject-card:hover {
-  box-shadow: var(--shadow-card);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .subject-card-name {
@@ -24,14 +25,21 @@
 }
 
 .subject-card-delete {
-  background: none;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
   border: none;
+  border-radius: var(--radius-md);
   color: var(--color-text-muted);
   font-size: 14px;
   cursor: pointer;
   padding: 4px 8px;
+  transition: background-color 0.16s ease, color 0.16s ease;
 }
 
 .subject-card-delete:hover {
+  background-color: var(--color-danger-bg);
   color: var(--color-danger);
 }

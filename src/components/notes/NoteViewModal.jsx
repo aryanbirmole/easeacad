@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { updateNote, deleteNote } from '../../api/notes';
 import { getAttachments, createAttachment, deleteAttachment } from '../../api/attachments';
+import Icon from '../common/Icon';
 import './NoteModals.css';
 
 function NoteViewModal({ note, onClose, onUpdated, onDeleted }) {
@@ -97,8 +98,13 @@ function NoteViewModal({ note, onClose, onUpdated, onDeleted }) {
           <>
             <div className="note-view-header">
               <h2>{note.title}</h2>
-              <button onClick={handlePinToggle} title={note.pinned ? 'Unpin' : 'Pin'}>
-                {note.pinned ? '📌' : '📍'}
+              <button
+                className="note-pin-btn"
+                onClick={handlePinToggle}
+                title={note.pinned ? 'Unpin' : 'Pin'}
+                aria-label={note.pinned ? 'Unpin note' : 'Pin note'}
+              >
+                <Icon name="pin" />
               </button>
             </div>
             <p className="note-view-content">{note.content || 'No content'}</p>
@@ -131,8 +137,9 @@ function NoteViewModal({ note, onClose, onUpdated, onDeleted }) {
                       <button
                         className="note-attachment-delete"
                         onClick={() => handleDeleteAttachment(a.id)}
+                        aria-label={`Delete attachment ${a.title || a.url}`}
                       >
-                        ×
+                        <Icon name="close" size={16} />
                       </button>
                     </li>
                   ))}

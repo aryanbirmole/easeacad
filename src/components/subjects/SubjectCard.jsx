@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import Icon from '../common/Icon';
 import './SubjectCard.css';
 
 function SubjectCard({ subject, onDelete }) {
@@ -18,7 +19,9 @@ function SubjectCard({ subject, onDelete }) {
       onClick={() => navigate(`/subjects/${subject.id}`)}
     >
       <span className="subject-card-name">{subject.name}</span>
-      <button className="subject-card-delete" onClick={handleDelete}>✕</button>
+      <button className="subject-card-delete" onClick={handleDelete} aria-label={`Delete ${subject.name}`} title="Delete subject">
+        <Icon name="trash" size={16} />
+      </button>
     </div>
   );
 }
