@@ -1,8 +1,10 @@
 .sidebar {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 200px;
+  flex: 0 0 224px;
+  width: 224px;
   padding: 20px 12px;
   background-color: var(--color-white);
   border-right: 1px solid var(--color-border);
@@ -10,13 +12,16 @@
 }
 
 .sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 10px 14px;
   border-radius: var(--radius-md);
   color: var(--color-text-muted);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color 0.16s ease, color 0.16s ease;
 }
 
 .sidebar-link:hover {
@@ -24,8 +29,24 @@
 }
 
 .sidebar-link.active {
-  background-color: var(--color-primary);
-  color: var(--color-white);
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.sidebar-link svg {
+  color: var(--color-text-muted);
+  transition: color 0.16s ease;
+}
+
+.sidebar-link:first-of-type svg,
+.sidebar-link.active:first-of-type svg {
+  color: var(--color-ui-accent-primary);
+}
+
+.sidebar-link:nth-of-type(2) svg,
+.sidebar-link.active:nth-of-type(2) svg {
+  color: var(--color-ui-accent-secondary);
 }
 
 .sidebar-theme-btn {
@@ -45,11 +66,21 @@
   font-weight: 500;
   text-align: left;
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.sidebar-link svg,
+.sidebar-theme-btn svg {
+  flex: 0 0 auto;
 }
 
 .sidebar-theme-btn:hover {
   background-color: var(--color-bg);
+  border-color: var(--color-primary);
+}
+
+.sidebar-theme-btn svg {
+  color: var(--color-ui-accent-tertiary);
 }
 
 @media (max-width: 768px) {
@@ -57,8 +88,15 @@
     position: fixed;
     top: 0;
     left: 0;
+    width: min(280px, 85vw);
     height: 100vh;
-    min-height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    max-height: 100vh;
+    max-height: 100dvh;
+    padding: calc(env(safe-area-inset-top, 0px) + 24px) 16px
+      calc(env(safe-area-inset-bottom, 0px) + 20px);
+    overflow-y: auto;
     z-index: 200;
     transform: translateX(-100%);
     transition: transform 0.2s ease;

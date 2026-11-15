@@ -1,9 +1,14 @@
 .page-layout {
   display: flex;
+  width: 100%;
+  min-width: 0;
 }
 
 .page-content {
-  flex: 1;
+  flex: 1 1 0%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 26px;
   background-color: var(--color-bg);
   color: var(--color-text-main);
@@ -15,11 +20,22 @@
 
 .hamburger-btn {
   display: none;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   cursor: pointer;
   color: var(--color-text-main);
+  transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.hamburger-btn:hover {
+  background: var(--color-hover-bg);
+  border-color: var(--color-primary);
 }
 
 .sidebar-overlay {
@@ -28,7 +44,11 @@
 
 @media (max-width: 768px) {
   .hamburger-btn {
-    display: block;
+    display: flex;
+  }
+
+  .page-content {
+    padding: 16px;
   }
 
   .sidebar-overlay.active {
@@ -38,13 +58,34 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: var(--color-overlay);
     z-index: 150;
   }
 }
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--color-text-main);
+}
+
+h1 {
+  color: var(--color-ui-accent-primary);
+}
+
+h2 {
+  color: var(--color-ui-accent-secondary);
+}
+
+h3 {
+  color: var(--color-ui-accent-tertiary);
+}
+
+h4 {
+  color: var(--color-ui-accent-primary);
+}
+
+:where(button, a, input, textarea, select):focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 [data-theme='dark'] {
@@ -55,4 +96,15 @@ h1, h2, h3, h4, h5, h6 {
 [data-theme='dark'] body {
   background-color: var(--color-bg);
   color: var(--color-text-main);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

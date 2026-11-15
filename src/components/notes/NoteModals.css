@@ -1,5 +1,6 @@
 .modal-card {
   background-color: var(--color-white);
+  border: 1px solid var(--color-border);
   padding: 24px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
@@ -12,7 +13,7 @@
   margin: 0 0 16px;
   font-size: 18px;
   font-weight: 600;
-  color: var(--color-text-main);
+  color: var(--color-ui-accent-tertiary);
 }
 
 .modal-card form {
@@ -28,15 +29,23 @@
   border-radius: var(--radius-md);
   font-size: 14px;
   outline: none;
+  color: var(--color-text-main);
+  background-color: var(--color-bg);
+  color-scheme: inherit;
   transition: border-color 0.15s ease;
 }
 
-.modal-card input:focus {
+.modal-card input:focus,
+.modal-card textarea:focus,
+.modal-card select:focus {
   border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
 }
 
 .note-modal input,
-.note-modal textarea {
+.note-modal textarea,
+.note-modal select {
   box-sizing: border-box;
   width: 100%;
   padding: 10px 12px;
@@ -49,8 +58,31 @@
 }
 
 .note-modal input:focus,
-.note-modal textarea:focus {
+.note-modal textarea:focus,
+.note-modal select:focus {
   border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+.note-pin-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+}
+
+.note-pin-btn:hover {
+  background-color: var(--color-primary-soft);
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
 }
 
 .modal-actions {
@@ -71,11 +103,21 @@
 
 .modal-actions button[type="submit"] {
   background-color: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-on-primary);
 }
 
 .modal-actions button[type="submit"]:hover {
   background-color: var(--color-primary-hover);
+}
+
+.modal-actions button,
+.note-modal-actions button {
+  transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
+}
+
+.modal-actions button:active,
+.note-modal-actions button:active {
+  transform: translateY(1px);
 }
 
 .modal-actions button[type="button"] {
@@ -96,7 +138,7 @@
 
 .note-attachments h3 {
   font-size: 0.9rem;
-  color: var(--color-text-muted);
+  color: var(--color-ui-accent-secondary);
   margin: 0 0 0.5rem 0;
 }
 
@@ -127,11 +169,22 @@
 }
 
 .note-attachment-delete {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
   background: none;
   border: none;
+  border-radius: var(--radius-md);
   color: var(--color-danger);
   cursor: pointer;
   font-size: 1.1rem;
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.note-attachment-delete:hover {
+  background-color: var(--color-danger-bg);
+  transform: translateY(-1px);
 }
 
 .note-attachment-form {

@@ -5,6 +5,10 @@
   margin-bottom: 12px;
 }
 
+.tasks-header h2 {
+  color: var(--color-ui-accent-primary);
+}
+
 .task-group {
   margin-bottom: 20px;
 }
@@ -19,20 +23,48 @@
 }
 
 .add-task-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   background-color: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-on-primary);
   border: none;
   border-radius: var(--radius-md);
   padding: 8px 14px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.16s ease, transform 0.16s ease;
 }
 
 .add-task-btn:hover {
   background-color: var(--color-primary-hover);
+  box-shadow: 0 0 0 2px var(--color-ui-accent-primary);
+  transform: translateY(-1px);
 }
 
-.task-group-label.completed {
-  color: var(--color-success);
+.add-task-btn:active {
+  transform: translateY(0);
+}
+
+.task-group-label--overdue {
+  color: var(--color-accent-red);
+}
+
+.task-group-label--due-today {
+  color: var(--color-ui-accent-secondary);
+}
+
+.task-group-label--upcoming {
+  color: var(--color-ui-accent-primary);
+}
+
+.task-group-label--completed {
+  color: var(--color-accent-green);
+}
+
+.task-action-error {
+  margin-bottom: 12px;
+  color: var(--color-danger);
 }

@@ -5,7 +5,7 @@
 .subjects-page h1 {
   font-size: 28px;
   font-weight: 700;
-  color: var(--color-text-main);
+  color: var(--color-ui-accent-primary);
   margin-bottom: 4px;
 }
 
@@ -21,5 +21,5 @@
 
 [data-theme='dark'] body {
   background-color: var(--color-bg);
-  color: var(--color-text-muted);
+  color: var(--color-text-main);
 }

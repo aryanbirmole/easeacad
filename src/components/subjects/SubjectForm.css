@@ -14,6 +14,16 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: 14px;
+  color: var(--color-text-main);
+  background-color: var(--color-white);
+  color-scheme: inherit;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.subject-form input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
 }
 
 .subject-form-colors {
@@ -27,25 +37,39 @@
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
 }
 
 .color-dot.selected {
-  border-color: var(--color-text-main);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-soft);
+  transform: scale(1.08);
 }
 
 .subject-form-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: 10px 16px;
   background-color: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-on-primary);
   border: none;
   border-radius: var(--radius-md);
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+  transition: background-color 0.16s ease, transform 0.16s ease;
 }
 
 .subject-form-submit:hover {
   background-color: var(--color-primary-hover);
+  box-shadow: 0 0 0 2px var(--color-ui-accent-tertiary);
+  transform: translateY(-1px);
+}
+
+.subject-form-submit:active {
+  transform: translateY(0);
 }
 
 .subject-form-submit:disabled {
