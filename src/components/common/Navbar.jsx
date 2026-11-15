@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { searchAll } from '../../api/search';
+import { getSubjects } from '../../api/subjects';
 import ChangePasswordModal from './ChangePasswordModal';
 import ChangeNameModal from './ChangeNameModal';
+import Icon from './Icon';
 import '../../styles/layout.css';
 import './Navbar.css';
 
@@ -18,6 +20,24 @@ function Navbar({ onMenuClick }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
+  const [subjectColors, setSubjectColors] = useState({});
+
+  useEffect(() => {
+    let active = true;
+    getSubjects()
+      .then((subjects) => {
+        if (active) {
+          setSubjectColors(Object.fromEntries(subjects.map((subject) => [subject.id, subject.color])));
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (searchQuery.trim() === '') {
@@ -49,6 +69,9 @@ function Navbar({ onMenuClick }) {
     navigate(`/subjects/${subjectId}`);
   };
 
+  const getSubjectColor = (subjectId, color) =>
+    color || subjectColors[subjectId] || 'var(--color-text-main)';
+
   const handleLogout = () => {
     const confirmed = window.confirm('Are you sure you want to log out?');
     if (confirmed) {
@@ -66,10 +89,13 @@ function Navbar({ onMenuClick }) {
 
   return (
     <nav className="navbar">
-      <button className="hamburger-btn" onClick={onMenuClick}>☰</button>
+      <button className="hamburger-btn" type="button" onClick={onMenuClick} aria-label="Open navigation menu">
+        <Icon name="menu" />
+      </button>
       <span className="navbar-title">EaseAcad</span>
 
       <div className="navbar-search-wrapper">
+        <Icon className="navbar-search-icon" name="search" />
         <input
           type="text"
           className="navbar-search-input"
@@ -91,7 +117,9 @@ function Navbar({ onMenuClick }) {
                     <h4>Subjects</h4>
                     {searchResults.subjects.map((s) => (
                       <div key={s.id} className="navbar-search-item" onClick={() => handleResultClick(s.id)}>
-                        {s.name}
+                        <span className="navbar-search-subject-name" style={{ color: getSubjectColor(s.id, s.color) }}>
+                          {s.name}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -102,7 +130,7 @@ function Navbar({ onMenuClick }) {
                     <h4>Notes</h4>
                     {searchResults.notes.map((n) => (
                       <div key={n.id} className="navbar-search-item" onClick={() => handleResultClick(n.subject_id)}>
-                        {n.title} <span className="navbar-search-context">in {n.subject_name}</span>
+                        {n.title} <span className="navbar-search-context">in <span className="navbar-search-subject-name" style={{ color: getSubjectColor(n.subject_id, n.subject_color) }}>{n.subject_name}</span></span>
                       </div>
                     ))}
                   </div>
@@ -113,7 +141,7 @@ function Navbar({ onMenuClick }) {
                     <h4>Tasks</h4>
                     {searchResults.tasks.map((t) => (
                       <div key={t.id} className="navbar-search-item" onClick={() => handleResultClick(t.subject_id)}>
-                        {t.title} <span className="navbar-search-context">in {t.subject_name}</span>
+                        {t.title} <span className="navbar-search-context">in <span className="navbar-search-subject-name" style={{ color: getSubjectColor(t.subject_id, t.subject_color) }}>{t.subject_name}</span></span>
                       </div>
                     ))}
                   </div>
@@ -124,7 +152,7 @@ function Navbar({ onMenuClick }) {
                     <h4>Important Dates</h4>
                     {searchResults.dates.map((d) => (
                       <div key={d.id} className="navbar-search-item" onClick={() => handleResultClick(d.subject_id)}>
-                        {d.title} <span className="navbar-search-context">in {d.subject_name}</span>
+                        {d.title} <span className="navbar-search-context">in <span className="navbar-search-subject-name" style={{ color: getSubjectColor(d.subject_id, d.subject_color) }}>{d.subject_name}</span></span>
                       </div>
                     ))}
                   </div>
@@ -135,12 +163,19 @@ function Navbar({ onMenuClick }) {
         )}
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <div className="navbar-profile-area">
         <div className="navbar-profile-wrapper">
-          <div className="navbar-profile" onClick={() => setShowDropdown(!showDropdown)}>
-            <span className="navbar-avatar">👤</span>
+          <button
+            className="navbar-profile"
+            type="button"
+            aria-haspopup="menu"
+            aria-expanded={showDropdown}
+            aria-label={user?.name ? `Profile menu for ${user.name}` : 'Profile menu'}
+            onClick={() => setShowDropdown(!showDropdown)}
+          >
+            <span className="navbar-avatar"><Icon name="user" /></span>
             <span className="navbar-username">{user?.name}</span>
-          </div>
+          </button>
           {showDropdown && (
             <div className="navbar-dropdown">
               <div onClick={() => { setShowChangeName(true); setShowDropdown(false); }}>
