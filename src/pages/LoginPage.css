@@ -4,24 +4,25 @@
   justify-content: center;
   min-height: 100vh;
   background-color: var(--color-bg);
-  padding: 16px;
+  padding: 20px;
 }
 
 .auth-card {
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  padding: 40px 32px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card-hover);
+  padding: 44px 36px;
   width: 100%;
-  max-width: 380px;
+  max-width: 400px;
 }
 
 .auth-title {
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   text-align: center;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   color: var(--color-text-main);
 }
 
@@ -29,7 +30,7 @@
   text-align: center;
   color: var(--color-text-muted);
   font-size: 14px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .auth-form {
@@ -41,11 +42,12 @@
 .auth-error {
   background-color: var(--color-danger-bg);
   color: var(--color-danger);
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
   margin-bottom: 1rem;
   text-align: center;
+  border: 1px solid rgba(225, 29, 72, 0.2);
 }
 
 .form-group {
@@ -56,17 +58,17 @@
 
 .form-group label {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text-main);
 }
 
 .form-group input {
-  padding: 10px 12px;
+  padding: 10px 14px;
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   font-size: 14px;
   color: var(--color-text-main);
-  background-color: var(--color-bg);
+  background-color: var(--color-white);
   color-scheme: inherit;
   outline: none;
   transition: border-color 0.16s ease, box-shadow 0.16s ease;
@@ -78,8 +80,8 @@
 }
 
 .auth-button {
-  margin-top: 8px;
-  padding: 11px;
+  margin-top: 10px;
+  padding: 12px;
   background-color: var(--color-primary);
   color: var(--color-on-primary);
   border: none;
@@ -103,7 +105,7 @@
   text-align: center;
   font-size: 13px;
   color: var(--color-text-muted);
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
 .auth-toggle span {
@@ -113,6 +115,5 @@
 }
 
 .auth-toggle span:hover {
-  color: var(--color-primary-hover);
   text-decoration: underline;
 }

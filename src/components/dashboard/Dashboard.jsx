@@ -52,11 +52,11 @@ function Dashboard() {
 
   const [greeting] = useState(() => {
     const messages = [
-      `Welcome back ${user?.name || 'there'}! Here's your overview.`,
-      "Let's see what's on your plate today.",
-      "Ready to tackle your subjects?",
-      "Here's where things stand.",
-      `Hey ${user?.name || 'there'}, good to see you!`,
+      `Welcome back, ${user?.name || 'there'}! Here is your study overview.`,
+      "Here is what's on your agenda today.",
+      "Ready to dive into your courses?",
+      "Here is your week at a glance.",
+      `Hey ${user?.name || 'there'}, hope studying goes smoothly today!`,
     ];
     return messages[Math.floor(Math.random() * messages.length)];
   });
@@ -83,85 +83,146 @@ function Dashboard() {
     fetchData();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (loadError) return <p className="load-error">Something went wrong loading your dashboard. Please refresh.</p>;
+  if (loading) {
+    return (
+      <div className="dashboard-loading">
+        <div className="dashboard-spinner"></div>
+        <p>Loading overview...</p>
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <p className="load-error">Something went wrong loading your dashboard. Please refresh.</p>
+    );
+  }
 
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>Dashboard</h1>
-        <br />
-        <p>{greeting}</p>
+        <h1 className="dashboard-title">Dashboard</h1>
+        <p className="dashboard-subtitle">{greeting}</p>
       </header>
 
+      {/* Professional Summary Stat Cards */}
       <div className="dashboard-summary">
-        <div className="summary-card">
-          <h3><Icon name="bookOpen" /><span>Subjects</span></h3>
-          <p>{stats.total_subjects}</p>
+        <div className="summary-card" onClick={() => navigate('/subjects')} role="button" tabIndex={0}>
+          <div className="summary-card-header">
+            <span className="summary-card-label">Courses</span>
+            <div className="summary-card-icon icon-courses">
+              <Icon name="bookOpen" size={17} />
+            </div>
+          </div>
+          <p className="summary-card-count">{stats.total_subjects}</p>
+          <span className="summary-card-status">Active courses</span>
         </div>
 
-        <div className="summary-card">
-          <h3><Icon name="listChecks" /><span>Pending Tasks</span></h3>
-          <p>{stats.pending_tasks}</p>
+        <div className="summary-card" role="region" aria-label="Pending Tasks">
+          <div className="summary-card-header">
+            <span className="summary-card-label">Pending Tasks</span>
+            <div className="summary-card-icon icon-tasks">
+              <Icon name="listChecks" size={17} />
+            </div>
+          </div>
+          <p className="summary-card-count">{stats.pending_tasks}</p>
+          <span className="summary-card-status">Tasks to complete</span>
         </div>
 
-        <div className="summary-card">
-          <h3><Icon name="alertTriangle" /><span>Overdue Tasks</span></h3>
-          <p>{stats.overdue_tasks}</p>
+        <div className={`summary-card ${stats.overdue_tasks > 0 ? 'card-warning' : ''}`} role="region" aria-label="Overdue Tasks">
+          <div className="summary-card-header">
+            <span className="summary-card-label">Overdue</span>
+            <div className="summary-card-icon icon-overdue">
+              <Icon name="alertTriangle" size={17} />
+            </div>
+          </div>
+          <p className="summary-card-count">{stats.overdue_tasks}</p>
+          <span className="summary-card-status">
+            {stats.overdue_tasks > 0 ? 'Requires attention' : 'All caught up'}
+          </span>
         </div>
       </div>
 
+      {/* Upcoming Deadlines */}
       <div className="dashboard-upcoming">
-        <h2>Upcoming Deadlines</h2>
+        <div className="dashboard-section-header">
+          <h2>Upcoming Deadlines</h2>
+          <span className="section-badge">Next 7 days</span>
+        </div>
+
         {upcoming.length === 0 ? (
-          <p>No upcoming deadlines in the next 7 days.</p>
+          <div className="dashboard-empty-state">
+            <p>No upcoming deadlines in the next 7 days.</p>
+          </div>
         ) : (
-          <ul>
+          <ul className="dashboard-list">
             {upcoming.map((date) => (
               <li
                 key={date.id}
-                className={isOverdue(date.event_date) ? 'overdue' : ''}
+                className={`dashboard-list-item ${isOverdue(date.event_date) ? 'overdue' : ''}`}
                 onClick={() => navigate(`/subjects/${date.subject_id}`)}
               >
-                {date.subject_name} — {date.title} ({formatDateDistance(date.event_date)})
+                <div className="item-main">
+                  <span className="item-subject">{date.subject_name}</span>
+                  <span className="item-divider">—</span>
+                  <span className="item-title">{date.title}</span>
+                </div>
+                <span className="item-tag">{formatDateDistance(date.event_date)}</span>
               </li>
             ))}
           </ul>
         )}
       </div>
 
+      {/* This Week */}
       <div className="dashboard-this-week">
-        <h2>This Week</h2>
+        <div className="dashboard-section-header">
+          <h2>This Week</h2>
+        </div>
 
-        <h3>Tasks</h3>
+        <h3 className="dashboard-subheading">Assignments & Tasks</h3>
         {thisWeek.tasks.length === 0 ? (
-          <p>No tasks due this week.</p>
+          <div className="dashboard-empty-state">
+            <p>No tasks due this week.</p>
+          </div>
         ) : (
-          <ul className="dashboard-task-list">
+          <ul className="dashboard-list dashboard-task-list">
             {thisWeek.tasks.map((task) => (
               <li
                 key={task.id}
-                className={isOverdue(task.due_date) ? 'overdue' : ''}
+                className={`dashboard-list-item ${isOverdue(task.due_date) ? 'overdue' : ''}`}
                 onClick={() => navigate(`/subjects/${task.subject_id}`)}
               >
-                {task.subject_name} — {task.title} ({formatDueDate(task.due_date)})
+                <div className="item-main">
+                  <span className="item-subject">{task.subject_name}</span>
+                  <span className="item-divider">—</span>
+                  <span className="item-title">{task.title}</span>
+                </div>
+                <span className="item-tag">{formatDueDate(task.due_date)}</span>
               </li>
             ))}
           </ul>
         )}
 
-        <h3>Important Dates</h3>
+        <h3 className="dashboard-subheading">Important Dates</h3>
         {thisWeek.dates.length === 0 ? (
-          <p>No important dates this week.</p>
+          <div className="dashboard-empty-state">
+            <p>No important dates this week.</p>
+          </div>
         ) : (
-          <ul>
+          <ul className="dashboard-list">
             {thisWeek.dates.map((date) => (
               <li
                 key={date.id}
-                className={isOverdue(date.event_date) ? 'overdue' : ''}
+                className={`dashboard-list-item ${isOverdue(date.event_date) ? 'overdue' : ''}`}
                 onClick={() => navigate(`/subjects/${date.subject_id}`)}
               >
-                {date.subject_name} — {date.title} ({formatDateDistance(date.event_date)})
+                <div className="item-main">
+                  <span className="item-subject">{date.subject_name}</span>
+                  <span className="item-divider">—</span>
+                  <span className="item-title">{date.title}</span>
+                </div>
+                <span className="item-tag">{formatDateDistance(date.event_date)}</span>
               </li>
             ))}
           </ul>

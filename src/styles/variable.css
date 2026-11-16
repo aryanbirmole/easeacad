@@ -1,91 +1,130 @@
 :root {
-  --color-primary: #171717;
-  --color-primary-hover: #333333;
-  --color-primary-soft: #f0f0f0;
+  /* Classy College Typography */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: var(--font-sans);
+  --heading: var(--font-sans);
+  --mono: var(--font-mono);
+
+  /* Light Theme — Warm Classy Ivory & Paper */
+  --color-primary: #1e293b;
+  --color-primary-hover: #0f172a;
+  --color-primary-soft: #f1f5f9;
   --color-on-primary: #ffffff;
-  --color-focus: #525252;
-  --color-text-main: #171717;
-  --color-text-muted: #737373;
-  --color-border: #e5e5e5;
-  --color-bg: #f7f7f7;
-  --color-hover-bg: #eeeeee;
+  --color-focus: #3b82f6;
+
+  --color-text-main: #1e1e24;
+  --color-text-muted: #71717a;
+  --color-border: #e4e4e7;
+  --color-border-subtle: #f4f4f5;
+  --color-bg: #fbfbfa;
+  --color-hover-bg: #f4f4f5;
   --color-white: #ffffff;
-  --color-danger: #c43d3d;
-  --color-danger-bg: #fff0f0;
-  --color-success: #328052;
-  --color-success-bg: #edf8f0;
-  --color-accent-red: #f05a00;
-  --color-accent-red-soft: #fff1e8;
-  --color-accent-orange: #c2184b;
-  --color-accent-orange-soft: #fff0f4;
-  --color-accent-yellow: #facc15;
-  --color-accent-yellow-text: #8a6500;
-  --color-accent-yellow-soft: #fff6cf;
-  --color-accent-green: #328052;
-  --color-accent-green-soft: #edf8f0;
-  --color-accent-blue: #245ab5;
-  --color-accent-blue-soft: #eaf1ff;
-  --color-accent-purple: #7650ad;
-  --color-accent-purple-soft: #f4efff;
-  --color-accent-pink: #a34478;
-  --color-accent-pink-soft: #fff0f7;
+
+  /* Card Surfaces & Shadows */
+  --card-bg: #ffffff;
+  --card-border: #e4e4e7;
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 6px 20px -4px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.02);
+
+  /* Status Colors */
+  --color-danger: #e11d48;
+  --color-danger-bg: #fff1f2;
+  --color-success: #16a34a;
+  --color-success-bg: #f0fdf4;
+
+  /* Collegiate Color Palette */
+  --color-accent-red: #e11d48;
+  --color-accent-red-soft: #fff1f2;
+  --color-accent-orange: #ea580c;
+  --color-accent-orange-soft: #fff7ed;
+  --color-accent-yellow: #d97706;
+  --color-accent-yellow-text: #b45309;
+  --color-accent-yellow-soft: #fef3c7;
+  --color-accent-green: #16a34a;
+  --color-accent-green-soft: #f0fdf4;
+  --color-accent-blue: #2563eb;
+  --color-accent-blue-soft: #eff6ff;
+  --color-accent-purple: #7c3aed;
+  --color-accent-purple-soft: #f5f3ff;
+  --color-accent-pink: #db2777;
+  --color-accent-pink-soft: #fdf2f8;
   --color-accent-lime: #65a30d;
+
   --color-on-task-check: #ffffff;
-  --color-on-date-check: #1a2608;
-  --color-ui-accent-primary: var(--color-accent-orange);
-  --color-ui-accent-primary-soft: var(--color-accent-orange-soft);
-  --color-ui-accent-secondary: var(--color-accent-red);
-  --color-ui-accent-secondary-soft: var(--color-accent-red-soft);
-  --color-ui-accent-tertiary: var(--color-accent-yellow-text);
-  --color-ui-accent-tertiary-soft: var(--color-accent-yellow-soft);
-  --color-overlay: rgba(0, 0, 0, 0.48);
+  --color-on-date-check: #1e1e24;
+
+  /* Semantic UI Accents */
+  --color-ui-accent-primary: #2563eb;
+  --color-ui-accent-primary-soft: #eff6ff;
+  --color-ui-accent-secondary: #7c3aed;
+  --color-ui-accent-secondary-soft: #f5f3ff;
+  --color-ui-accent-tertiary: #16a34a;
+  --color-ui-accent-tertiary-soft: #f0fdf4;
+
+  --color-overlay: rgba(24, 24, 27, 0.4);
+  --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
-  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-card-hover: 0 10px 24px rgba(0, 0, 0, 0.09);
+  --radius-xl: 18px;
 }
 
 :root[data-theme='dark'] {
-  --color-primary: #f5f5f5;
-  --color-primary-hover: #d4d4d4;
-  --color-primary-soft: #292929;
-  --color-on-primary: #171717;
-  --color-focus: #d4d4d4;
-  --color-text-main: #f5f5f5;
-  --color-text-muted: #a3a3a3;
-  --color-border: #383838;
-  --color-bg: #121212;
-  --color-hover-bg: #292929;
-  --color-white: #1c1c1c;
-  --color-danger: #ff7777;
-  --color-danger-bg: #3a2020;
-  --color-success: #72cf91;
-  --color-success-bg: #1e3325;
-  --color-accent-red: #ff8a91;
-  --color-accent-red-soft: #3b2025;
-  --color-accent-orange: #ffb36b;
-  --color-accent-orange-soft: #3b2a1c;
-  --color-accent-yellow: #f3cf5b;
-  --color-accent-yellow-text: #f3cf5b;
-  --color-accent-yellow-soft: #3a321b;
-  --color-accent-green: #72cf91;
-  --color-accent-green-soft: #1e3325;
-  --color-accent-blue: #88b5ff;
-  --color-accent-blue-soft: #202c42;
-  --color-accent-purple: #c1a0ff;
-  --color-accent-purple-soft: #30253f;
-  --color-accent-pink: #ff9acb;
-  --color-accent-pink-soft: #3c2433;
+  /* Dark Theme — Elegant Charcoal & Midnight */
+  --color-primary: #f4f4f5;
+  --color-primary-hover: #e4e4e7;
+  --color-primary-soft: #27272a;
+  --color-on-primary: #18181b;
+  --color-focus: #60a5fa;
+
+  --color-text-main: #f4f4f5;
+  --color-text-muted: #a1a1aa;
+  --color-border: #27272a;
+  --color-border-subtle: #1f1f23;
+  --color-bg: #141416;
+  --color-hover-bg: #222226;
+  --color-white: #1c1c20;
+
+  /* Card Surfaces & Shadows */
+  --card-bg: #1c1c20;
+  --card-border: #27272a;
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  /* Status Colors */
+  --color-danger: #fb7185;
+  --color-danger-bg: rgba(244, 63, 94, 0.12);
+  --color-success: #4ade80;
+  --color-success-bg: rgba(74, 222, 128, 0.12);
+
+  /* Collegiate Color Palette (Dark) */
+  --color-accent-red: #fb7185;
+  --color-accent-red-soft: rgba(244, 63, 94, 0.15);
+  --color-accent-orange: #fb923c;
+  --color-accent-orange-soft: rgba(249, 115, 22, 0.15);
+  --color-accent-yellow: #fcd34d;
+  --color-accent-yellow-text: #fcd34d;
+  --color-accent-yellow-soft: rgba(245, 158, 11, 0.15);
+  --color-accent-green: #4ade80;
+  --color-accent-green-soft: rgba(74, 222, 128, 0.15);
+  --color-accent-blue: #60a5fa;
+  --color-accent-blue-soft: rgba(96, 165, 250, 0.15);
+  --color-accent-purple: #a78bfa;
+  --color-accent-purple-soft: rgba(167, 139, 250, 0.15);
+  --color-accent-pink: #f472b6;
+  --color-accent-pink-soft: rgba(244, 114, 182, 0.15);
   --color-accent-lime: #a3e635;
-  --color-on-task-check: #102417;
-  --color-on-date-check: #1a2608;
-  --color-ui-accent-primary: #88b5ff;
-  --color-ui-accent-primary-soft: #202c42;
-  --color-ui-accent-secondary: #c1a0ff;
-  --color-ui-accent-secondary-soft: #30253f;
-  --color-ui-accent-tertiary: #72cf91;
-  --color-ui-accent-tertiary-soft: #1e3325;
-  --color-overlay: rgba(0, 0, 0, 0.7);
-  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.18);
-  --shadow-card-hover: 0 10px 24px rgba(0, 0, 0, 0.3);
+
+  --color-on-task-check: #18181b;
+  --color-on-date-check: #18181b;
+
+  /* Semantic UI Accents */
+  --color-ui-accent-primary: #60a5fa;
+  --color-ui-accent-primary-soft: rgba(96, 165, 250, 0.15);
+  --color-ui-accent-secondary: #a78bfa;
+  --color-ui-accent-secondary-soft: rgba(167, 139, 250, 0.15);
+  --color-ui-accent-tertiary: #4ade80;
+  --color-ui-accent-tertiary-soft: rgba(74, 222, 128, 0.15);
+
+  --color-overlay: rgba(0, 0, 0, 0.65);
 }

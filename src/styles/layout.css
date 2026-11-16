@@ -9,8 +9,7 @@
   min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
-  padding: 26px;
-  background-color: var(--color-bg);
+  padding: 32px 36px;
   color: var(--color-text-main);
 }
 
@@ -22,15 +21,15 @@
   display: none;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   padding: 0;
-  background: transparent;
+  background: var(--color-white);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   cursor: pointer;
   color: var(--color-text-main);
-  transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+  transition: background-color 0.16s ease, border-color 0.16s ease;
 }
 
 .hamburger-btn:hover {
@@ -59,28 +58,9 @@
     right: 0;
     bottom: 0;
     background: var(--color-overlay);
+    backdrop-filter: blur(4px);
     z-index: 150;
   }
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: var(--color-text-main);
-}
-
-h1 {
-  color: var(--color-ui-accent-primary);
-}
-
-h2 {
-  color: var(--color-ui-accent-secondary);
-}
-
-h3 {
-  color: var(--color-ui-accent-tertiary);
-}
-
-h4 {
-  color: var(--color-ui-accent-primary);
 }
 
 :where(button, a, input, textarea, select):focus-visible {
@@ -88,14 +68,25 @@ h4 {
   outline-offset: 2px;
 }
 
-[data-theme='dark'] {
-  color-scheme: dark;
-  color: var(--color-text-main);
+/* Subtle Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
 }
 
-[data-theme='dark'] body {
-  background-color: var(--color-bg);
-  color: var(--color-text-main);
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(161, 161, 170, 0.3);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(161, 161, 170, 0.5);
 }
 
 @media (prefers-reduced-motion: reduce) {
