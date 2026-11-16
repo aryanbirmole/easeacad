@@ -2,24 +2,28 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  gap: 12px;
 }
 
 .dates-header h2 {
-  color: var(--color-ui-accent-secondary);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  margin: 0;
 }
 
 .add-date-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   background-color: var(--color-primary);
   color: var(--color-on-primary);
   border: none;
   border-radius: var(--radius-md);
   padding: 8px 14px;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.16s ease, transform 0.16s ease;
@@ -27,10 +31,20 @@
 
 .add-date-btn:hover {
   background-color: var(--color-primary-hover);
-  box-shadow: 0 0 0 2px var(--color-ui-accent-secondary);
   transform: translateY(-1px);
 }
 
 .add-date-btn:active {
   transform: translateY(0);
+}
+
+@media (max-width: 560px) {
+  .dates-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-date-btn {
+    width: 100%;
+  }
 }

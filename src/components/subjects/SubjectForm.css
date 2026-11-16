@@ -3,14 +3,19 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 16px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .subject-form input {
   flex: 1;
-  min-width: 180px;
-  padding: 10px 12px;
+  min-width: 200px;
+  padding: 9px 14px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: 14px;
@@ -28,7 +33,8 @@
 
 .subject-form-colors {
   display: flex;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
 }
 
 .color-dot {
@@ -37,13 +43,14 @@
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
+  padding: 0;
   transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
 }
 
 .color-dot.selected {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px var(--color-primary-soft);
-  transform: scale(1.08);
+  border-color: var(--card-bg);
+  box-shadow: 0 0 0 2px var(--color-primary);
+  transform: scale(1.1);
 }
 
 .subject-form-submit {
@@ -51,28 +58,40 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 16px;
+  padding: 9px 18px;
   background-color: var(--color-primary);
   color: var(--color-on-primary);
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--radius-md);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13.5px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.16s ease, transform 0.16s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.16s ease, transform 0.14s ease, box-shadow 0.16s ease;
 }
 
-.subject-form-submit:hover {
+.subject-form-submit:hover:not(:disabled) {
   background-color: var(--color-primary-hover);
-  box-shadow: 0 0 0 2px var(--color-ui-accent-tertiary);
+  box-shadow: var(--shadow-card-hover);
   transform: translateY(-1px);
 }
 
-.subject-form-submit:active {
+.subject-form-submit:active:not(:disabled) {
   transform: translateY(0);
 }
 
 .subject-form-submit:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .subject-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .subject-form-colors {
+    justify-content: center;
+  }
 }

@@ -12,16 +12,36 @@ function SubjectCard({ subject, onDelete }) {
     }
   };
 
+  const subjectColor = subject.color || 'var(--color-ui-accent-primary)';
+
   return (
     <div
       className="subject-card"
-      style={{ borderLeftColor: subject.color }}
       onClick={() => navigate(`/subjects/${subject.id}`)}
+      role="button"
+      tabIndex={0}
     >
-      <span className="subject-card-name">{subject.name}</span>
-      <button className="subject-card-delete" onClick={handleDelete} aria-label={`Delete ${subject.name}`} title="Delete subject">
-        <Icon name="trash" size={16} />
-      </button>
+      <div className="subject-card-stripe" style={{ backgroundColor: subjectColor }} />
+      <div className="subject-card-content">
+        <div className="subject-card-header">
+          <span className="subject-card-pill" style={{ color: subjectColor, backgroundColor: `${subjectColor}14` }}>
+            Course
+          </span>
+          <button
+            className="subject-card-delete"
+            onClick={handleDelete}
+            aria-label={`Delete ${subject.name}`}
+            title="Delete course"
+          >
+            <Icon name="trash" size={14} />
+          </button>
+        </div>
+        <h3 className="subject-card-name">{subject.name}</h3>
+        <div className="subject-card-footer">
+          <span className="subject-card-view">View Course</span>
+          <span className="subject-card-arrow">→</span>
+        </div>
+      </div>
     </div>
   );
 }

@@ -2,37 +2,41 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  gap: 12px;
 }
 
 .tasks-header h2 {
-  color: var(--color-ui-accent-primary);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  margin: 0;
 }
 
 .task-group {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .task-group-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--color-text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
-  margin: 0 0 8px;
+  letter-spacing: 0.04em;
+  margin: 0 0 10px 2px;
 }
 
 .add-task-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   background-color: var(--color-primary);
   color: var(--color-on-primary);
   border: none;
   border-radius: var(--radius-md);
   padding: 8px 14px;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.16s ease, transform 0.16s ease;
@@ -40,7 +44,6 @@
 
 .add-task-btn:hover {
   background-color: var(--color-primary-hover);
-  box-shadow: 0 0 0 2px var(--color-ui-accent-primary);
   transform: translateY(-1px);
 }
 
@@ -49,7 +52,7 @@
 }
 
 .task-group-label--overdue {
-  color: var(--color-accent-red);
+  color: var(--color-danger);
 }
 
 .task-group-label--due-today {
@@ -67,4 +70,16 @@
 .task-action-error {
   margin-bottom: 12px;
   color: var(--color-danger);
+  font-size: 13px;
+}
+
+@media (max-width: 560px) {
+  .tasks-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-task-btn {
+    width: 100%;
+  }
 }

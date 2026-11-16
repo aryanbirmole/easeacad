@@ -1,22 +1,38 @@
 .task-item {
   display: grid;
-  grid-template-columns: 24px minmax(0, 1fr) auto 32px 32px;
+  grid-template-columns: 22px minmax(0, 1fr) auto 30px 30px;
   grid-template-areas: "check title due edit delete";
   align-items: center;
   gap: 8px 12px;
   padding: 10px 14px;
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   margin-bottom: 8px;
+  transition: background-color 0.14s ease, border-color 0.14s ease;
+}
+
+.task-item:hover {
+  border-color: var(--color-border);
+}
+
+.task-item.completed {
+  opacity: 0.65;
+}
+
+.task-item.completed .task-title {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
 }
 
 .task-title {
   grid-area: title;
   min-width: 0;
   font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-main);
   overflow-wrap: anywhere;
-  transition: color 0.2s ease;
+  transition: color 0.14s ease;
 }
 
 .task-due {
@@ -24,10 +40,14 @@
   white-space: nowrap;
   font-size: 12px;
   color: var(--color-text-muted);
+  background: var(--color-hover-bg);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
 }
 
 .task-due.overdue {
   color: var(--color-danger);
+  background: var(--color-danger-bg);
   font-weight: 600;
 }
 
@@ -38,21 +58,20 @@
   display: grid;
   place-content: center;
   box-sizing: border-box;
-  flex: 0 0 22px;
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   margin: 0;
-  border: 1.5px solid var(--color-text-muted);
-  border-radius: 6px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 4px;
   background-color: var(--color-white);
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition: background-color 0.14s ease, border-color 0.14s ease;
 }
 
 .task-item input[type='checkbox']::after {
   content: '';
-  width: 5px;
-  height: 9px;
+  width: 4px;
+  height: 8px;
   border: solid var(--color-on-task-check);
   border-width: 0 2px 2px 0;
   opacity: 0;
@@ -72,22 +91,35 @@
 
 .task-item input[type='checkbox']:focus-visible {
   outline: 2px solid var(--color-focus);
-  outline-offset: 3px;
+  outline-offset: 2px;
+}
+
+.task-delete,
+.task-edit {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background-color 0.14s ease, color 0.14s ease;
+}
+
+.task-edit {
+  grid-area: edit;
 }
 
 .task-delete {
   grid-area: delete;
-  display: inline-grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: var(--radius-md);
-  color: var(--color-text-muted);
-  cursor: pointer;
-  transition: background-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
+}
+
+.task-edit:hover {
+  background-color: var(--color-hover-bg);
+  color: var(--color-primary);
 }
 
 .task-delete:hover {
@@ -95,34 +127,9 @@
   color: var(--color-danger);
 }
 
-.task-edit {
-  grid-area: edit;
-  display: inline-grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: var(--radius-md);
-  color: var(--color-text-muted);
-  cursor: pointer;
-  transition: background-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
-}
-
-.task-edit:hover,
-.task-delete:hover {
-  transform: translateY(-1px);
-}
-
-.task-edit:hover {
-  background-color: var(--color-ui-accent-primary-soft);
-  color: var(--color-ui-accent-primary);
-}
-
 @media (max-width: 560px) {
   .task-item {
-    grid-template-columns: 24px minmax(0, 1fr) 32px 32px;
+    grid-template-columns: 22px minmax(0, 1fr) 28px 28px;
     grid-template-areas:
       "check title edit delete"
       ". due . .";
@@ -131,12 +138,6 @@
   }
 
   .task-due:not(:empty) {
-    margin-top: -4px;
-  }
-
-  .task-item input[type='checkbox'] {
-    width: 24px;
-    height: 24px;
-    justify-self: center;
+    margin-top: -2px;
   }
 }

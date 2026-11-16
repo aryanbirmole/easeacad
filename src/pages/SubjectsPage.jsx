@@ -53,13 +53,15 @@ function SubjectsPage() {
           {loading ? (
             <p>Loading...</p>
           ) : subjects.length === 0 ? (
-            <p style={{ color: 'var(--color-text-muted)', fontSize: '14px' }}>
+            <p className="subjects-empty">
               No subjects yet — add one above to get started.
             </p>
           ) : (
-            subjects.map((subject) => (
-              <SubjectCard key={subject.id} subject={subject} onDelete={handleDelete} />
-            ))
+            <div className="subjects-grid">
+              {subjects.map((subject) => (
+                <SubjectCard key={subject.id} subject={subject} onDelete={handleDelete} />
+              ))}
+            </div>
           )}
         </div>
       </div>

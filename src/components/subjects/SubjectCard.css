@@ -1,42 +1,93 @@
-/* SubjectCard.css */
 .subject-card {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  background-color: var(--color-white);
-  border: 1px solid var(--color-border);
-  border-left: 4px solid var(--color-primary);
-  border-radius: var(--radius-md);
-  margin-bottom: 10px;
+  flex-direction: column;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   cursor: pointer;
+  overflow: hidden;
+  position: relative;
   transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
 }
 
 .subject-card:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  border-color: var(--color-border);
   box-shadow: var(--shadow-card-hover);
 }
 
+.subject-card-stripe {
+  height: 4px;
+  width: 100%;
+}
+
+.subject-card-content {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.subject-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subject-card-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+}
+
 .subject-card-name {
-  font-size: 15px;
-  font-weight: 500;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
   color: var(--color-text-main);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+.subject-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border-subtle);
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+  transition: color 0.14s ease;
+}
+
+.subject-card:hover .subject-card-footer {
+  color: var(--color-primary);
+}
+
+.subject-card-arrow {
+  transition: transform 0.14s ease;
+}
+
+.subject-card:hover .subject-card-arrow {
+  transform: translateX(3px);
 }
 
 .subject-card-delete {
-  display: inline-grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
   background: transparent;
   border: none;
-  border-radius: var(--radius-md);
-  color: var(--color-text-muted);
-  font-size: 14px;
   cursor: pointer;
-  padding: 4px 8px;
-  transition: background-color 0.16s ease, color 0.16s ease;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  padding: 0;
+  transition: background-color 0.14s ease, color 0.14s ease;
 }
 
 .subject-card-delete:hover {
