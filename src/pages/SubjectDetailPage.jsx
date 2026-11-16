@@ -172,22 +172,35 @@ function SubjectDetailPage() {
             <>
               <h1 className="subject-detail-heading">{subject.name}</h1>
 
-              {notes.length === 0 ? (
-                <p style={{ color: 'var(--color-text-muted)', fontSize: '14px' }}>
-                  No notes yet — click + to add one.
-                </p>
-              ) : (
-                Object.entries(groupedNotes).map(([section, sectionNotes]) => (
-                  <div key={section} style={{ marginBottom: '24px' }}>
-                    <h3 style={{ fontSize: '16px', color: 'var(--color-text-main)', marginBottom: '10px' }}>
-                      {section}
-                    </h3>
-                    {sectionNotes.map((note) => (
-                      <NoteCard key={note.id} note={note} onClick={setActiveNote} />
-                    ))}
+              <div className="notes-section">
+                <div className="notes-header">
+                  <h2>Notes</h2>
+                  <button
+                    className="add-note-btn"
+                    onClick={() => setShowAddModal(true)}
+                  >
+                    <Icon name="plus" size={16} />
+                    <span>Add Note</span>
+                  </button>
+                </div>
+
+                {notes.length === 0 ? (
+                  <div className="notes-empty-state">
+                    <p>No notes yet — click Add Note to create your first lecture or study note.</p>
                   </div>
-                ))
-              )}
+                ) : (
+                  Object.entries(groupedNotes).map(([section, sectionNotes]) => (
+                    <div key={section} className="notes-group">
+                      <h3 className="notes-group-title">
+                        {section}
+                      </h3>
+                      {sectionNotes.map((note) => (
+                        <NoteCard key={note.id} note={note} onClick={setActiveNote} />
+                      ))}
+                    </div>
+                  ))
+                )}
+              </div>
 
               <TasksSection
                 tasks={tasks}
@@ -205,15 +218,6 @@ function SubjectDetailPage() {
                 onEdit={handleEditDate}
                 onAddClick={() => { setEditingDate(null); setDateModalOpen(true); }}
               />
-
-              <button
-                className="add-note-btn"
-                onClick={() => setShowAddModal(true)}
-                title="Add Note"
-                aria-label="Add note"
-              >
-                <Icon name="plus" size={22} />
-              </button>
             </>
           ) : (
             <p style={{ color: 'var(--color-text-muted)', fontSize: '14px' }}>
