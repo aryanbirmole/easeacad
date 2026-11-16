@@ -1,200 +1,547 @@
+/* NoteModals.css — Professional Minimalist Modals */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-overlay);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modal-content.note-modal,
 .modal-card {
-  background-color: var(--color-white);
-  border: 1px solid var(--color-border);
-  padding: 24px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  width: 420px;
-  max-height: 80vh;
+  box-shadow: var(--shadow-card-hover);
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
   overflow-y: auto;
+  padding: 24px 28px;
+  position: relative;
+  box-sizing: border-box;
 }
 
-.modal-card h3 {
-  margin: 0 0 16px;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--color-ui-accent-tertiary);
+.modal-card {
+  max-width: 460px;
 }
 
-.modal-card form {
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  letter-spacing: -0.02em;
+}
+
+.modal-close-icon {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.14s ease, color 0.14s ease;
+}
+
+.modal-close-icon:hover {
+  background-color: var(--color-hover-bg);
+  color: var(--color-text-main);
+}
+
+/* Modal Form Fields */
+.modal-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
-.modal-card input[type="text"],
-.modal-card input[type="date"] {
-  padding: 10px 12px;
+.modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-main);
+}
+
+.field-optional {
+  font-weight: 400;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.modal-field input[type="text"],
+.modal-field input[type="date"] {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 14px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: 14px;
-  outline: none;
   color: var(--color-text-main);
-  background-color: var(--color-bg);
+  background-color: var(--color-white);
   color-scheme: inherit;
-  transition: border-color 0.15s ease;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.modal-card input:focus,
-.modal-card textarea:focus,
-.modal-card select:focus {
+.modal-field input[type="text"]:focus,
+.modal-field input[type="date"]:focus,
+.note-input-title:focus,
+.note-input-tags:focus,
+.note-textarea:focus {
   border-color: var(--color-primary);
-  outline: none;
   box-shadow: 0 0 0 3px var(--color-primary-soft);
 }
 
-.note-modal input,
-.note-modal textarea,
-.note-modal select {
+/* Note Editor Inputs */
+.note-input-title,
+.note-input-tags {
   box-sizing: border-box;
   width: 100%;
-  padding: 10px 12px;
-  color: var(--color-text-main);
-  color-scheme: inherit;
-  background-color: var(--color-white);
+  padding: 10px 14px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  font: inherit;
+  font-size: 14px;
+  color: var(--color-text-main);
+  background-color: var(--color-white);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.note-modal input:focus,
-.note-modal textarea:focus,
-.note-modal select:focus {
-  border-color: var(--color-primary);
+.note-input-title {
+  font-weight: 600;
+  font-size: 15.5px;
+}
+
+.note-editor-wrapper {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-white);
+}
+
+.note-tabs {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-hover-bg);
+  border-bottom: 1px solid var(--color-border);
+  padding: 4px;
+  gap: 4px;
+}
+
+.note-tab-btn {
+  background: transparent;
+  border: none;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background-color 0.14s ease, color 0.14s ease;
+}
+
+.note-tab-btn.active {
+  background-color: var(--card-bg);
+  color: var(--color-text-main);
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.note-textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
   outline: none;
-  box-shadow: 0 0 0 3px var(--color-primary-soft);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-main);
+  background-color: transparent;
+  resize: vertical;
+  min-height: 140px;
+}
+
+/* Live Preview Section with Line-breaks Preserved */
+.note-preview-pane {
+  padding: 16px;
+  min-height: 140px;
+  background-color: var(--card-bg);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.note-preview-title {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.note-preview-body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--color-text-main);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.note-preview-empty {
+  color: var(--color-text-muted);
+  font-style: italic;
+  font-size: 13px;
+}
+
+.note-preview-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* Note View Mode */
+.note-view-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.note-view-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--color-text-main);
+  letter-spacing: -0.02em;
+}
+
+.note-view-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .note-pin-btn {
-  display: inline-grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
   padding: 0;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background-color: var(--color-bg);
-  color: var(--color-primary);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-white);
+  color: var(--color-text-muted);
   cursor: pointer;
-  transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+  transition: background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease;
 }
 
 .note-pin-btn:hover {
-  background-color: var(--color-primary-soft);
-  border-color: var(--color-primary);
-  transform: translateY(-1px);
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 6px;
-}
-
-.modal-actions button {
-  padding: 9px 16px;
-  border-radius: var(--radius-md);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-}
-
-.modal-actions button[type="submit"] {
-  background-color: var(--color-primary);
-  color: var(--color-on-primary);
-}
-
-.modal-actions button[type="submit"]:hover {
-  background-color: var(--color-primary-hover);
-}
-
-.modal-actions button,
-.note-modal-actions button {
-  transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
-}
-
-.modal-actions button:active,
-.note-modal-actions button:active {
-  transform: translateY(1px);
-}
-
-.modal-actions button[type="button"] {
-  background-color: var(--color-white);
+  background-color: var(--color-hover-bg);
   color: var(--color-text-main);
-  border: 1px solid var(--color-border);
 }
 
-.modal-actions button[type="button"]:hover {
-  background-color: var(--color-bg);
+.note-pin-btn.is-pinned {
+  color: var(--color-ui-accent-primary);
+  background-color: var(--color-ui-accent-primary-soft);
+  border-color: var(--color-ui-accent-primary);
 }
 
+/* Note View Content: Crucial for preserving spacing and newlines */
+.note-view-content {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--color-text-main);
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 16px 18px;
+  background-color: var(--color-hover-bg);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  margin: 12px 0 16px 0;
+}
+
+.note-view-empty {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.note-view-tags {
+  margin-bottom: 18px;
+}
+
+/* Attachments */
 .note-attachments {
-  margin: 1rem 0;
+  margin: 16px 0;
   border-top: 1px solid var(--color-border);
-  padding-top: 1rem;
+  padding-top: 14px;
 }
 
-.note-attachments h3 {
-  font-size: 0.9rem;
-  color: var(--color-ui-accent-secondary);
-  margin: 0 0 0.5rem 0;
+.note-attachments-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.note-attachments-header h3 {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  margin: 0;
+}
+
+.note-attachments-count {
+  font-size: 11.5px;
+  color: var(--color-text-muted);
 }
 
 .note-attachments-empty {
+  font-size: 13px;
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  margin: 0 0 10px 0;
 }
 
 .note-attachments-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .note-attachment-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.4rem 0;
-  border-bottom: 1px solid var(--color-border);
+  gap: 10px;
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  font-size: 13px;
+}
+
+.note-attachment-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note-attachment-link:hover {
+  text-decoration: underline;
+}
+
+.attachment-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background-color: var(--color-hover-bg);
+  color: var(--color-text-muted);
 }
 
 .note-attachment-thumb {
-  max-width: 80px;
-  max-height: 80px;
-  border-radius: var(--radius-md);
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
   object-fit: cover;
 }
 
 .note-attachment-delete {
-  display: inline-grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  background: none;
+  background: transparent;
   border: none;
-  border-radius: var(--radius-md);
-  color: var(--color-danger);
+  color: var(--color-text-muted);
   cursor: pointer;
-  font-size: 1.1rem;
-  transition: background-color 0.16s ease, color 0.16s ease;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.14s ease, background-color 0.14s ease;
 }
 
 .note-attachment-delete:hover {
   background-color: var(--color-danger-bg);
-  transform: translateY(-1px);
+  color: var(--color-danger);
 }
 
 .note-attachment-form {
   display: flex;
-  gap: 0.5rem;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
-.note-attachment-form input,
+.note-attachment-form select,
+.note-attachment-form input {
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  background-color: var(--color-white);
+  color: var(--color-text-main);
+  outline: none;
+}
+
 .note-attachment-form select {
+  flex: 0 0 110px;
+}
+
+.note-attachment-form input {
   flex: 1;
-  min-width: 100px;
+  min-width: 120px;
+}
+
+.note-attachment-form button {
+  padding: 8px 14px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-hover-bg);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.14s ease;
+}
+
+.note-attachment-form button:hover {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+/* Modal Actions */
+.modal-actions,
+.note-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.btn-primary {
+  padding: 9px 18px;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.14s ease, transform 0.14s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  padding: 9px 16px;
+  background-color: var(--color-white);
+  color: var(--color-text-main);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.14s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-hover-bg);
+}
+
+.btn-danger {
+  padding: 9px 16px;
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger);
+  border: 1px solid rgba(225, 29, 72, 0.2);
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.14s ease;
+}
+
+.btn-danger:hover {
+  background-color: var(--color-danger);
+  color: #ffffff;
+}
+
+/* Mobile Optimizations for All Modals */
+@media (max-width: 640px) {
+  .modal-overlay {
+    padding: 10px;
+    align-items: flex-end;
+  }
+
+  .modal-content.note-modal,
+  .modal-card {
+    max-height: 92vh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding: 20px 16px;
+  }
+
+  .note-view-title {
+    font-size: 18px;
+  }
+
+  .note-attachment-form {
+    flex-direction: column;
+  }
+
+  .note-attachment-form select,
+  .note-attachment-form input,
+  .note-attachment-form button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .modal-actions,
+  .note-modal-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .modal-actions button,
+  .note-modal-actions button {
+    width: 100%;
+  }
 }
