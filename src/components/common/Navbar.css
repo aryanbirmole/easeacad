@@ -1,19 +1,46 @@
 .navbar {
   display: grid;
-  grid-template-columns: auto minmax(0, 400px) auto;
-  gap: 24px;
+  grid-template-columns: auto minmax(0, 440px) auto;
+  gap: 20px;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 24px;
-  background-color: var(--color-white);
+  padding: 12px 28px;
+  background-color: var(--card-bg);
   border-bottom: 1px solid var(--color-border);
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-brand-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-logo-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
 }
 
 .navbar-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--color-ui-accent-primary);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text-main);
+  white-space: nowrap;
 }
 
 .navbar-profile-wrapper {
@@ -31,79 +58,94 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 12px;
-  border: 0;
-  border-radius: 20px;
-  background-color: var(--color-bg);
+  padding: 4px 12px 4px 5px;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  background-color: var(--color-white);
   color: inherit;
   cursor: pointer;
   font: inherit;
-  transition: background-color 0.16s ease, box-shadow 0.16s ease;
+  transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
 }
 
 .navbar-profile:hover {
-  background-color: var(--color-hover-bg);
+  background-color: var(--color-ui-accent-primary-soft);
+  border-color: var(--color-ui-accent-primary);
 }
 
 .navbar-avatar {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background-color: var(--color-white);
-  color: var(--color-ui-accent-secondary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-}
-
-.navbar-avatar svg {
-  display: block;
+  flex-shrink: 0;
 }
 
 .navbar-username {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
   color: var(--color-text-main);
+  white-space: nowrap;
+}
+
+.navbar-chevron {
+  font-size: 10px;
+  color: var(--color-text-muted);
 }
 
 .navbar-dropdown {
   position: absolute;
   right: 0;
   top: calc(100% + 6px);
-  background-color: var(--color-white);
+  background-color: var(--card-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  min-width: 160px;
-  box-shadow: var(--shadow-card);
+  min-width: 170px;
+  box-shadow: var(--shadow-card-hover);
   overflow: hidden;
   z-index: 10;
+  padding: 4px;
 }
 
 .navbar-dropdown div {
-  padding: 10px 16px;
-  font-size: 14px;
+  padding: 9px 12px;
+  font-size: 13px;
+  font-weight: 500;
   color: var(--color-text-main);
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background-color 0.15s ease;
-}
-
-.navbar-dropdown div:hover {
-  background-color: var(--color-bg);
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .navbar-dropdown div:first-child:hover {
   background-color: var(--color-ui-accent-primary-soft);
+  color: var(--color-ui-accent-primary);
 }
 
 .navbar-dropdown div:nth-child(2):hover {
   background-color: var(--color-ui-accent-secondary-soft);
+  color: var(--color-ui-accent-secondary);
 }
 
-.navbar-dropdown div:last-child:hover {
-  background-color: var(--color-accent-red-soft);
+.navbar-dropdown .dropdown-logout {
+  color: var(--color-danger);
+  border-top: 1px solid var(--color-border);
+  margin-top: 4px;
+  padding-top: 9px;
 }
 
+.navbar-dropdown .dropdown-logout:hover {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+
+/* Search Bar */
 .navbar-search-wrapper {
   position: relative;
   min-width: 0;
@@ -114,135 +156,130 @@
   box-sizing: border-box;
   min-width: 0;
   width: 100%;
-  padding: 0.5rem 0.75rem;
-  padding-left: 2.4rem;
-  background-color: var(--color-white);
+  padding: 8px 14px 8px 36px;
+  background-color: var(--color-hover-bg);
   color: var(--color-text-main);
-  color-scheme: inherit;
-  border: 1px solid var(--color-ui-accent-secondary);
-  border-radius: var(--radius-md);
-  font-size: 0.9rem;
-  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  font-size: 13.5px;
+  transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.navbar-search-input:focus {
+  background-color: var(--card-bg);
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
 }
 
 .navbar-search-icon {
   position: absolute;
   top: 50%;
   left: 12px;
-  color: var(--color-ui-accent-primary);
+  color: var(--color-text-muted);
   transform: translateY(-50%);
   pointer-events: none;
 }
 
-.navbar-search-input:focus {
-  border-color: var(--color-ui-accent-primary);
-  outline: none;
-  box-shadow: 0 0 0 3px var(--color-ui-accent-secondary-soft);
-}
-
 .navbar-search-dropdown {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 6px);
   left: 0;
   right: 0;
-  background: var(--color-white);
+  background: var(--card-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-card);
-  max-height: 400px;
+  box-shadow: var(--shadow-card-hover);
+  max-height: 380px;
   overflow-y: auto;
   z-index: 100;
-  padding: 0.5rem;
+  padding: 8px;
 }
 
 .navbar-search-empty {
-  padding: 0.5rem;
+  padding: 12px;
   color: var(--color-text-muted);
+  font-size: 13px;
   margin: 0;
+  text-align: center;
 }
 
 .navbar-search-group h4 {
-  margin: 0.5rem 0 0.25rem 0;
-  font-size: 0.8rem;
-  color: var(--color-ui-accent-secondary);
+  margin: 8px 0 4px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .navbar-search-item {
-  padding: 0.5rem;
-  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background-color 0.16s ease, color 0.16s ease;
+  font-size: 13.5px;
+  transition: background-color 0.16s ease;
 }
 
 .navbar-search-item:hover {
-  background: var(--color-bg);
+  background: var(--color-hover-bg);
 }
 
 .navbar-search-context {
   color: var(--color-text-muted);
-  font-size: 0.85rem;
+  font-size: 12.5px;
 }
 
 .navbar-search-subject-name {
   font-weight: 600;
 }
 
+/* Mobile Optimizations */
 @media (max-width: 768px) {
   .navbar {
-    grid-template-columns: 40px max-content minmax(0, 1fr) 40px;
-    gap: 8px;
-    padding: 10px 12px;
-  }
-
-  .navbar-title {
-    white-space: nowrap;
-  }
-
-  .navbar-search-wrapper {
-    max-width: none;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 10px 14px;
   }
 
   .navbar-username {
     display: none;
   }
 
-  .navbar-profile {
-    width: 40px;
-    height: 40px;
-    justify-content: center;
-    padding: 0;
+  .navbar-chevron {
+    display: none;
   }
 
-  .navbar-avatar {
-    background: transparent;
+  .navbar-profile {
+    padding: 3px;
+    border-radius: 50%;
   }
 
   .navbar-search-dropdown {
-    right: -48px;
-    left: auto;
-    width: min(360px, calc(100vw - 24px));
+    position: fixed;
+    top: 56px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-height: 60vh;
   }
 }
 
-@media (max-width: 360px) {
-  .navbar {
-    grid-template-columns: 36px max-content minmax(0, 1fr) 36px;
-    gap: 6px;
-    padding: 8px;
-  }
-
-  .hamburger-btn,
-  .navbar-profile {
-    width: 36px;
-    height: 36px;
-  }
-
+@media (max-width: 500px) {
   .navbar-title {
-    font-size: 16px;
+    display: none;
+  }
+
+  .navbar-brand-section {
+    gap: 6px;
   }
 
   .navbar-search-input {
-    padding-left: 2rem;
+    padding: 7px 10px 7px 32px;
+    font-size: 13px;
+  }
+
+  .navbar-search-icon {
+    left: 10px;
   }
 }

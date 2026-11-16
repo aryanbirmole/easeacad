@@ -89,17 +89,22 @@ function Navbar({ onMenuClick }) {
 
   return (
     <nav className="navbar">
-      <button className="hamburger-btn" type="button" onClick={onMenuClick} aria-label="Open navigation menu">
-        <Icon name="menu" />
-      </button>
-      <span className="navbar-title">EaseAcad</span>
+      <div className="navbar-brand-section">
+        <button className="hamburger-btn" type="button" onClick={onMenuClick} aria-label="Open navigation menu">
+          <Icon name="menu" />
+        </button>
+        <div className="navbar-logo-badge">
+          <span>EA</span>
+        </div>
+        <span className="navbar-title">EaseAcad</span>
+      </div>
 
       <div className="navbar-search-wrapper">
-        <Icon className="navbar-search-icon" name="search" />
+        <Icon className="navbar-search-icon" name="search" size={16} />
         <input
           type="text"
           className="navbar-search-input"
-          placeholder="Search subjects, notes, tasks..."
+          placeholder="Search courses, notes, assignments..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -114,7 +119,7 @@ function Navbar({ onMenuClick }) {
               <>
                 {searchResults.subjects.length > 0 && (
                   <div className="navbar-search-group">
-                    <h4>Subjects</h4>
+                    <h4>Courses</h4>
                     {searchResults.subjects.map((s) => (
                       <div key={s.id} className="navbar-search-item" onClick={() => handleResultClick(s.id)}>
                         <span className="navbar-search-subject-name" style={{ color: getSubjectColor(s.id, s.color) }}>
@@ -173,8 +178,11 @@ function Navbar({ onMenuClick }) {
             aria-label={user?.name ? `Profile menu for ${user.name}` : 'Profile menu'}
             onClick={() => setShowDropdown(!showDropdown)}
           >
-            <span className="navbar-avatar"><Icon name="user" /></span>
+            <span className="navbar-avatar">
+              {user?.name ? user.name[0].toUpperCase() : 'U'}
+            </span>
             <span className="navbar-username">{user?.name}</span>
+            <span className="navbar-chevron">▾</span>
           </button>
           {showDropdown && (
             <div className="navbar-dropdown">
@@ -184,7 +192,7 @@ function Navbar({ onMenuClick }) {
               <div onClick={() => { setShowChangePassword(true); setShowDropdown(false); }}>
                 Change Password
               </div>
-              <div onClick={handleLogout}>Log out</div>
+              <div className="dropdown-logout" onClick={handleLogout}>Log out</div>
             </div>
           )}
         </div>
