@@ -13,7 +13,7 @@
 
 .subject-card:hover {
   transform: translateY(-2px);
-  border-color: var(--color-border);
+  border-color: var(--subject-color, var(--color-border));
   box-shadow: var(--shadow-card-hover);
 }
 
@@ -38,9 +38,10 @@
 .subject-card-pill {
   font-size: 11px;
   font-weight: 600;
-  padding: 2px 8px;
+  padding: 2px 9px;
   border-radius: 9999px;
   letter-spacing: 0.02em;
+  border: 1px solid transparent;
 }
 
 .subject-card-name {
@@ -50,6 +51,11 @@
   color: var(--color-text-main);
   line-height: 1.35;
   letter-spacing: -0.015em;
+  transition: color 0.16s ease;
+}
+
+.subject-card:hover .subject-card-name {
+  color: var(--subject-color, var(--color-text-main));
 }
 
 .subject-card-footer {
@@ -64,7 +70,7 @@
 }
 
 .subject-card:hover .subject-card-footer {
-  color: var(--color-primary);
+  color: var(--subject-color, var(--color-primary));
 }
 
 .subject-card-arrow {

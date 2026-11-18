@@ -17,14 +17,27 @@ function SubjectCard({ subject, onDelete }) {
   return (
     <div
       className="subject-card"
+      style={{ '--subject-color': subjectColor }}
       onClick={() => navigate(`/subjects/${subject.id}`)}
       role="button"
       tabIndex={0}
     >
       <div className="subject-card-stripe" style={{ backgroundColor: subjectColor }} />
-      <div className="subject-card-content">
+      <div
+        className="subject-card-content"
+        style={{
+          background: `linear-gradient(180deg, ${subjectColor}0d 0%, transparent 50%)`
+        }}
+      >
         <div className="subject-card-header">
-          <span className="subject-card-pill" style={{ color: subjectColor, backgroundColor: `${subjectColor}14` }}>
+          <span
+            className="subject-card-pill"
+            style={{
+              color: subjectColor,
+              backgroundColor: `${subjectColor}16`,
+              borderColor: `${subjectColor}38`,
+            }}
+          >
             Course
           </span>
           <button

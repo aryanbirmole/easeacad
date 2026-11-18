@@ -41,7 +41,12 @@ function SubjectForm({ onAdd }) {
           />
         ))}
       </div>
-      <button type="submit" className="subject-form-submit" disabled={loading}>
+      <button
+        type="submit"
+        className="subject-form-submit"
+        disabled={loading}
+        style={{ backgroundColor: color }}
+      >
         {loading ? 'Adding...' : <><Icon name="plus" size={16} /> Add Subject</>}
       </button>
     </form>
