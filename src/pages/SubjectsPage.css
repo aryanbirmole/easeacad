@@ -1,17 +1,14 @@
-.subjects-page {
-  padding: 24px;
-}
-
-.subjects-page h1 {
+.subjects-heading {
   font-size: 26px;
   font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--color-text-main);
-  margin-bottom: 4px;
+  margin: 0 0 4px 0;
 }
 
 .subjects-subtitle {
   color: var(--color-text-muted);
-  margin-bottom: 24px;
+  margin: 0 0 24px 0;
   font-size: 14.5px;
 }
 
@@ -31,4 +28,10 @@
   border: 1px dashed var(--color-border);
   border-radius: var(--radius-md);
   margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .subjects-heading {
+    font-size: 22px;
+  }
 }

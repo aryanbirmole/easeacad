@@ -43,10 +43,8 @@ function SubjectsPage() {
       <div className="page-layout">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <div className="page-content">
-          <h1>Subjects</h1>
-          <p style={{ color: 'var(--color-text-muted)', marginBottom: '24px' }}>
-            Manage your subjects
-          </p>
+          <h1 className="subjects-heading">Subjects</h1>
+          <p className="subjects-subtitle">Manage your subjects</p>
 
           <SubjectForm onAdd={handleAdd} />
 

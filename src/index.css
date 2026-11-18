@@ -83,15 +83,11 @@ p {
   margin: 0;
 }
 
-code,
-.counter {
+code {
   font-family: var(--mono);
   display: inline-flex;
   border-radius: var(--radius-sm);
   color: var(--color-text-main);
-}
-
-code {
   font-size: 13px;
   line-height: 135%;
   padding: 2px 6px;
