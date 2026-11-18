@@ -67,11 +67,16 @@
 
 .note-card-tag {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 2px 8px;
   border-radius: 9999px;
-  background-color: var(--color-hover-bg);
-  color: var(--color-text-muted);
+  border: 1px solid transparent;
+  letter-spacing: 0.01em;
+  transition: transform 0.12s ease;
+}
+
+.note-card-tag:hover {
+  transform: translateY(-1px);
 }
 
 @media (max-width: 640px) {
