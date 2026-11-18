@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { getDashboardStats, getUpcoming, getThisWeek } from '../../api/dashboard';
+import { getSubjects } from '../../api/subjects';
 import Icon from '../common/Icon';
 import './Dashboard.css';
 
@@ -21,8 +22,9 @@ function formatDueDate(dateString) {
 
   const diffDays = Math.round((due - today) / (1000 * 60 * 60 * 24));
 
-  if (diffDays === 0) return 'Due today';
-  if (diffDays > 0) return `Due in ${diffDays} day${diffDays === 1 ? '' : 's'}`;
+  if (diffDays === 0) return '⏳ Due today';
+  if (diffDays === 1) return 'Due tomorrow';
+  if (diffDays > 1) return `Due in ${diffDays} days`;
   const overdueDays = Math.abs(diffDays);
   return `Overdue by ${overdueDays} day${overdueDays === 1 ? '' : 's'}`;
 }
@@ -35,8 +37,9 @@ function formatDateDistance(dateString) {
 
   const diffDays = Math.round((target - today) / (1000 * 60 * 60 * 24));
 
-  if (diffDays === 0) return 'Today';
-  if (diffDays > 0) return `In ${diffDays} day${diffDays === 1 ? '' : 's'}`;
+  if (diffDays === 0) return '📅 Today';
+  if (diffDays === 1) return 'Tomorrow';
+  if (diffDays > 1) return `In ${diffDays} days`;
   const pastDays = Math.abs(diffDays);
   return `${pastDays} day${pastDays === 1 ? '' : 's'} ago`;
 }
@@ -47,6 +50,7 @@ function Dashboard() {
   const [stats, setStats] = useState({ total_subjects: 0, pending_tasks: 0, overdue_tasks: 0 });
   const [upcoming, setUpcoming] = useState([]);
   const [thisWeek, setThisWeek] = useState({ tasks: [], dates: [] });
+  const [subjectColors, setSubjectColors] = useState({});
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
 
@@ -64,14 +68,23 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [statsData, upcomingData, thisWeekData] = await Promise.all([
+        const [statsData, upcomingData, thisWeekData, subjectsData] = await Promise.all([
           getDashboardStats(),
           getUpcoming(),
           getThisWeek(),
+          getSubjects().catch(() => []),
         ]);
         setStats(statsData);
         setUpcoming(upcomingData);
         setThisWeek(thisWeekData);
+
+        const colorMap = {};
+        if (Array.isArray(subjectsData)) {
+          subjectsData.forEach((s) => {
+            colorMap[s.id] = s.color;
+          });
+        }
+        setSubjectColors(colorMap);
         setLoadError(false);
       } catch (err) {
         console.error(err);
@@ -82,6 +95,8 @@ function Dashboard() {
     };
     fetchData();
   }, []);
+
+  const getSubjectColor = (id, fallback) => subjectColors[id] || fallback || '#3985c6';
 
   if (loading) {
     return (
@@ -105,48 +120,75 @@ function Dashboard() {
         <p className="dashboard-subtitle">{greeting}</p>
       </header>
 
-      {/* Professional Summary Stat Cards */}
+      {/* Dynamic Collegiate Summary Stat Cards */}
       <div className="dashboard-summary">
-        <div className="summary-card" onClick={() => navigate('/subjects')} role="button" tabIndex={0}>
+        {/* COURSES CARD */}
+        <div
+          className="summary-card card-courses"
+          onClick={() => navigate('/subjects')}
+          role="button"
+          tabIndex={0}
+        >
           <div className="summary-card-header">
-            <span className="summary-card-label">Courses</span>
+            <span className="summary-card-label">Active Courses</span>
             <div className="summary-card-icon icon-courses">
               <Icon name="bookOpen" size={17} />
             </div>
           </div>
-          <p className="summary-card-count">{stats.total_subjects}</p>
-          <span className="summary-card-status">Active courses</span>
+          <p className="summary-card-count count-courses">{stats.total_subjects}</p>
+          <span className="summary-card-status">Enrolled courses</span>
+          <div className="summary-card-action">
+            <span>Manage courses</span>
+            <span className="action-arrow">→</span>
+          </div>
         </div>
 
-        <div className="summary-card" role="region" aria-label="Pending Tasks">
+        {/* TASKS CARD */}
+        <div className="summary-card card-tasks" role="region" aria-label="Pending Tasks">
           <div className="summary-card-header">
             <span className="summary-card-label">Pending Tasks</span>
             <div className="summary-card-icon icon-tasks">
               <Icon name="listChecks" size={17} />
             </div>
           </div>
-          <p className="summary-card-count">{stats.pending_tasks}</p>
-          <span className="summary-card-status">Tasks to complete</span>
+          <p className="summary-card-count count-tasks">{stats.pending_tasks}</p>
+          <span className="summary-card-status">Assignments to complete</span>
+          <div className="summary-card-action">
+            <span>View assignments</span>
+            <span className="action-arrow">→</span>
+          </div>
         </div>
 
-        <div className={`summary-card ${stats.overdue_tasks > 0 ? 'card-warning' : ''}`} role="region" aria-label="Overdue Tasks">
+        {/* OVERDUE CARD */}
+        <div
+          className={`summary-card card-overdue ${stats.overdue_tasks > 0 ? 'card-warning' : 'card-success'}`}
+          role="region"
+          aria-label="Overdue Tasks"
+        >
           <div className="summary-card-header">
-            <span className="summary-card-label">Overdue</span>
+            <span className="summary-card-label">Overdue Alert</span>
             <div className="summary-card-icon icon-overdue">
-              <Icon name="alertTriangle" size={17} />
+              <Icon name={stats.overdue_tasks > 0 ? 'alertTriangle' : 'check'} size={17} />
             </div>
           </div>
-          <p className="summary-card-count">{stats.overdue_tasks}</p>
+          <p className="summary-card-count count-overdue">{stats.overdue_tasks}</p>
           <span className="summary-card-status">
-            {stats.overdue_tasks > 0 ? 'Requires attention' : 'All caught up'}
+            {stats.overdue_tasks > 0 ? 'Requires attention' : 'All caught up! 🎉'}
           </span>
+          <div className="summary-card-action">
+            <span>{stats.overdue_tasks > 0 ? 'Resolve backlog' : 'Great pace'}</span>
+            <span className="action-arrow">→</span>
+          </div>
         </div>
       </div>
 
       {/* Upcoming Deadlines */}
       <div className="dashboard-upcoming">
         <div className="dashboard-section-header">
-          <h2>Upcoming Deadlines</h2>
+          <div>
+            <h2>Upcoming Deadlines</h2>
+            <p className="section-description">Milestones and deadlines approaching in the next 7 days</p>
+          </div>
           <span className="section-badge">Next 7 days</span>
         </div>
 
@@ -156,20 +198,35 @@ function Dashboard() {
           </div>
         ) : (
           <ul className="dashboard-list">
-            {upcoming.map((date) => (
-              <li
-                key={date.id}
-                className={`dashboard-list-item ${isOverdue(date.event_date) ? 'overdue' : ''}`}
-                onClick={() => navigate(`/subjects/${date.subject_id}`)}
-              >
-                <div className="item-main">
-                  <span className="item-subject">{date.subject_name}</span>
-                  <span className="item-divider">—</span>
-                  <span className="item-title">{date.title}</span>
-                </div>
-                <span className="item-tag">{formatDateDistance(date.event_date)}</span>
-              </li>
-            ))}
+            {upcoming.map((date) => {
+              const color = getSubjectColor(date.subject_id, date.subject_color);
+              const overdue = isOverdue(date.event_date);
+              return (
+                <li
+                  key={date.id}
+                  className={`dashboard-list-item ${overdue ? 'overdue' : ''}`}
+                  style={{ borderLeftColor: color }}
+                  onClick={() => navigate(`/subjects/${date.subject_id}`)}
+                >
+                  <div className="item-main">
+                    <span
+                      className="item-subject-pill"
+                      style={{
+                        color: color,
+                        backgroundColor: `${color}14`,
+                        borderColor: `${color}35`,
+                      }}
+                    >
+                      {date.subject_name}
+                    </span>
+                    <span className="item-title">{date.title}</span>
+                  </div>
+                  <span className={`item-tag ${overdue ? 'tag-overdue' : 'tag-upcoming'}`}>
+                    {formatDateDistance(date.event_date)}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>
@@ -177,7 +234,10 @@ function Dashboard() {
       {/* This Week */}
       <div className="dashboard-this-week">
         <div className="dashboard-section-header">
-          <h2>This Week</h2>
+          <div>
+            <h2>This Week</h2>
+            <p className="section-description">Your weekly schedule of tasks and important dates</p>
+          </div>
         </div>
 
         <h3 className="dashboard-subheading">Assignments & Tasks</h3>
@@ -187,20 +247,35 @@ function Dashboard() {
           </div>
         ) : (
           <ul className="dashboard-list dashboard-task-list">
-            {thisWeek.tasks.map((task) => (
-              <li
-                key={task.id}
-                className={`dashboard-list-item ${isOverdue(task.due_date) ? 'overdue' : ''}`}
-                onClick={() => navigate(`/subjects/${task.subject_id}`)}
-              >
-                <div className="item-main">
-                  <span className="item-subject">{task.subject_name}</span>
-                  <span className="item-divider">—</span>
-                  <span className="item-title">{task.title}</span>
-                </div>
-                <span className="item-tag">{formatDueDate(task.due_date)}</span>
-              </li>
-            ))}
+            {thisWeek.tasks.map((task) => {
+              const color = getSubjectColor(task.subject_id, task.subject_color);
+              const overdue = isOverdue(task.due_date);
+              return (
+                <li
+                  key={task.id}
+                  className={`dashboard-list-item ${overdue ? 'overdue' : ''}`}
+                  style={{ borderLeftColor: color }}
+                  onClick={() => navigate(`/subjects/${task.subject_id}`)}
+                >
+                  <div className="item-main">
+                    <span
+                      className="item-subject-pill"
+                      style={{
+                        color: color,
+                        backgroundColor: `${color}14`,
+                        borderColor: `${color}35`,
+                      }}
+                    >
+                      {task.subject_name}
+                    </span>
+                    <span className="item-title">{task.title}</span>
+                  </div>
+                  <span className={`item-tag ${overdue ? 'tag-overdue' : 'tag-due'}`}>
+                    {formatDueDate(task.due_date)}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
         )}
 
@@ -211,20 +286,35 @@ function Dashboard() {
           </div>
         ) : (
           <ul className="dashboard-list">
-            {thisWeek.dates.map((date) => (
-              <li
-                key={date.id}
-                className={`dashboard-list-item ${isOverdue(date.event_date) ? 'overdue' : ''}`}
-                onClick={() => navigate(`/subjects/${date.subject_id}`)}
-              >
-                <div className="item-main">
-                  <span className="item-subject">{date.subject_name}</span>
-                  <span className="item-divider">—</span>
-                  <span className="item-title">{date.title}</span>
-                </div>
-                <span className="item-tag">{formatDateDistance(date.event_date)}</span>
-              </li>
-            ))}
+            {thisWeek.dates.map((date) => {
+              const color = getSubjectColor(date.subject_id, date.subject_color);
+              const overdue = isOverdue(date.event_date);
+              return (
+                <li
+                  key={date.id}
+                  className={`dashboard-list-item ${overdue ? 'overdue' : ''}`}
+                  style={{ borderLeftColor: color }}
+                  onClick={() => navigate(`/subjects/${date.subject_id}`)}
+                >
+                  <div className="item-main">
+                    <span
+                      className="item-subject-pill"
+                      style={{
+                        color: color,
+                        backgroundColor: `${color}14`,
+                        borderColor: `${color}35`,
+                      }}
+                    >
+                      {date.subject_name}
+                    </span>
+                    <span className="item-title">{date.title}</span>
+                  </div>
+                  <span className={`item-tag ${overdue ? 'tag-overdue' : 'tag-upcoming'}`}>
+                    {formatDateDistance(date.event_date)}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>
