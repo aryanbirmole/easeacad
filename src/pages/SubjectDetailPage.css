@@ -1,8 +1,4 @@
 /* SubjectDetailPage.css */
-.subject-detail-page {
-  padding: 24px;
-}
-
 .back-button {
   display: inline-flex;
   align-items: center;
@@ -23,11 +19,49 @@
   transform: translateX(-3px);
 }
 
+/* Course Detail Hero Banner */
+.subject-detail-hero {
+  border: 1px solid var(--card-border);
+  border-left: 5px solid var(--color-ui-accent-primary);
+  border-radius: var(--radius-lg);
+  padding: 18px 24px;
+  margin-bottom: 24px;
+  background-color: var(--card-bg);
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.16s ease;
+}
+
+.subject-detail-hero-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.subject-detail-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.subject-hero-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.subject-hero-type {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
 .subject-detail-heading {
   font-size: 26px;
   font-weight: 700;
   color: var(--color-text-main);
-  margin: 0 0 24px 0;
+  margin: 0;
   line-height: 1.3;
   letter-spacing: -0.02em;
 }
@@ -101,6 +135,15 @@
 }
 
 @media (max-width: 600px) {
+  .subject-detail-hero {
+    padding: 16px 18px;
+    margin-bottom: 20px;
+  }
+
+  .subject-detail-heading {
+    font-size: 22px;
+  }
+
   .notes-header {
     flex-direction: column;
     align-items: stretch;
@@ -108,14 +151,5 @@
 
   .add-note-btn {
     width: 100%;
-  }
-
-  .subject-detail-heading {
-    font-size: 22px;
-    margin-bottom: 18px;
-  }
-
-  .subject-detail-page {
-    padding: 16px;
   }
 }

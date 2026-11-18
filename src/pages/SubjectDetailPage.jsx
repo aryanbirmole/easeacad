@@ -170,7 +170,29 @@ function SubjectDetailPage() {
             <p>Loading...</p>
           ) : subject ? (
             <>
-              <h1 className="subject-detail-heading">{subject.name}</h1>
+              <div
+                className="subject-detail-hero"
+                style={{
+                  borderLeftColor: subject.color || 'var(--color-ui-accent-primary)',
+                  background: `linear-gradient(135deg, ${subject.color || 'var(--color-ui-accent-primary)'}12 0%, transparent 70%)`
+                }}
+              >
+                <div className="subject-detail-hero-info">
+                  <div className="subject-detail-hero-badge">
+                    <span
+                      className="subject-hero-dot"
+                      style={{ backgroundColor: subject.color || 'var(--color-ui-accent-primary)' }}
+                    />
+                    <span
+                      className="subject-hero-type"
+                      style={{ color: subject.color || 'var(--color-ui-accent-primary)' }}
+                    >
+                      Course Workspace
+                    </span>
+                  </div>
+                  <h1 className="subject-detail-heading">{subject.name}</h1>
+                </div>
+              </div>
 
               <div className="notes-section">
                 <div className="notes-header">
