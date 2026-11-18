@@ -20,19 +20,20 @@
 }
 
 .navbar-logo-badge {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: var(--color-primary);
-  color: var(--color-on-primary);
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: #ffffff;
   font-family: var(--font-sans);
   font-weight: 700;
-  font-size: 13px;
+  font-size: 13.5px;
   display: flex;
   align-items: center;
   justify-content: center;
   letter-spacing: -0.02em;
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
 }
 
 .navbar-title {
@@ -167,9 +168,9 @@
 
 .navbar-search-input:focus {
   background-color: var(--card-bg);
-  border-color: var(--color-primary);
+  border-color: var(--color-ui-accent-primary);
   outline: none;
-  box-shadow: 0 0 0 3px var(--color-primary-soft);
+  box-shadow: 0 0 0 3px var(--color-ui-accent-primary-soft);
 }
 
 .navbar-search-icon {
@@ -179,6 +180,22 @@
   color: var(--color-text-muted);
   transform: translateY(-50%);
   pointer-events: none;
+}
+
+.navbar-search-kbd {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background-color: var(--color-hover-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 1px 5px;
+  cursor: pointer;
 }
 
 .navbar-search-dropdown {

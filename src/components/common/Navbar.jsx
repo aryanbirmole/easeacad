@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { searchAll } from '../../api/search';
@@ -21,6 +21,26 @@ function Navbar({ onMenuClick }) {
   const [searchResults, setSearchResults] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
   const [subjectColors, setSubjectColors] = useState({});
+  const searchInputRef = useRef(null);
+
+  // Global Ctrl+K / ⌘K and Escape navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+        searchInputRef.current?.select();
+      } else if (e.key === 'Escape') {
+        if (document.activeElement === searchInputRef.current || searchQuery) {
+          searchInputRef.current?.blur();
+          setSearchQuery('');
+          setSearchResults(null);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [searchQuery]);
 
   useEffect(() => {
     let active = true;
@@ -102,12 +122,14 @@ function Navbar({ onMenuClick }) {
       <div className="navbar-search-wrapper">
         <Icon className="navbar-search-icon" name="search" size={16} />
         <input
+          ref={searchInputRef}
           type="text"
           className="navbar-search-input"
-          placeholder="Search courses, notes, assignments..."
+          placeholder="Search courses, notes, assignments... (⌘K)"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+        <kbd className="navbar-search-kbd" onClick={() => searchInputRef.current?.focus()}>⌘K</kbd>
 
         {searchQuery.trim() !== '' && (
           <div className="navbar-search-dropdown">
