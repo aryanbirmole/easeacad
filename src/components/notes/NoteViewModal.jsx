@@ -4,6 +4,15 @@ import { getAttachments, createAttachment, deleteAttachment } from '../../api/at
 import Icon from '../common/Icon';
 import './NoteModals.css';
 
+function getFaviconUrl(url) {
+  try {
+    const domain = new URL(url).hostname;
+    return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
+  } catch {
+    return null;
+  }
+}
+
 function NoteViewModal({ note, onClose, onUpdated, onDeleted }) {
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(note.title);
@@ -11,6 +20,7 @@ function NoteViewModal({ note, onClose, onUpdated, onDeleted }) {
   const [tags, setTags] = useState(note.tags || '');
   const [editTab, setEditTab] = useState('write');
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const [attachments, setAttachments] = useState([]);
   const [attachType, setAttachType] = useState('video_link');
@@ -51,6 +61,21 @@ function NoteViewModal({ note, onClose, onUpdated, onDeleted }) {
     onUpdated(updated);
   };
 
+  const handleCopy = async () => {
+    try {
+      const textToCopy = `# ${note.title}\n\n${note.content || ''}${note.tags ? `\n\nTags: ${note.tags}` : ''}`;
+      await navigator.clipboard.writeText(textToCopy);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
   const handleAddAttachment = async (e) => {
     e.preventDefault();
     if (!attachUrl.trim()) return;
@@ -84,7 +109,7 @@ function NoteViewModal({ note, onClose, onUpdated, onDeleted }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content note-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content note-modal print-container" onClick={(e) => e.stopPropagation()}>
         {editing ? (
           <form onSubmit={handleSave}>
             <div className="modal-header">
@@ -158,6 +183,20 @@ function NoteViewModal({ note, onClose, onUpdated, onDeleted }) {
               </div>
               <div className="note-view-controls">
                 <button
+                  className="note-quick-action-btn"
+                  onClick={handleCopy}
+                  title="Copy formatted note"
+                >
+                  {copied ? '✓ Copied' : '📋 Copy'}
+                </button>
+                <button
+                  className="note-quick-action-btn"
+                  onClick={handlePrint}
+                  title="Print / Save PDF"
+                >
+                  🖨️ PDF
+                </button>
+                <button
                   className={`note-pin-btn ${note.pinned ? 'is-pinned' : ''}`}
                   onClick={handlePinToggle}
                   title={note.pinned ? 'Unpin note' : 'Pin note'}
@@ -192,28 +231,39 @@ function NoteViewModal({ note, onClose, onUpdated, onDeleted }) {
                 <p className="note-attachments-empty">No external links or attachments yet.</p>
               ) : (
                 <ul className="note-attachments-list">
-                  {attachments.map((a) => (
-                    <li key={a.id} className="note-attachment-item">
-                      {a.type === 'image' ? (
-                        <a href={a.url} target="_blank" rel="noopener noreferrer" className="note-attachment-link">
-                          <img src={a.url} alt={a.title || 'attachment'} className="note-attachment-thumb" />
-                          <span>{a.title || 'View Image'}</span>
-                        </a>
-                      ) : (
-                        <a href={a.url} target="_blank" rel="noopener noreferrer" className="note-attachment-link">
-                          <span className="attachment-badge">{a.type === 'video_link' ? 'Video' : 'Link'}</span>
-                          <span>{a.title || a.url}</span>
-                        </a>
-                      )}
-                      <button
-                        className="note-attachment-delete"
-                        onClick={() => handleDeleteAttachment(a.id)}
-                        aria-label={`Delete attachment ${a.title || a.url}`}
-                      >
-                        <Icon name="close" size={14} />
-                      </button>
-                    </li>
-                  ))}
+                  {attachments.map((a) => {
+                    const favicon = getFaviconUrl(a.url);
+                    return (
+                      <li key={a.id} className="note-attachment-item">
+                        {a.type === 'image' ? (
+                          <a href={a.url} target="_blank" rel="noopener noreferrer" className="note-attachment-link">
+                            <img src={a.url} alt={a.title || 'attachment'} className="note-attachment-thumb" />
+                            <span>{a.title || 'View Image'}</span>
+                          </a>
+                        ) : (
+                          <a href={a.url} target="_blank" rel="noopener noreferrer" className="note-attachment-link">
+                            {favicon && (
+                              <img
+                                src={favicon}
+                                alt=""
+                                className="note-domain-favicon"
+                                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                              />
+                            )}
+                            <span className="attachment-badge">{a.type === 'video_link' ? 'Video' : 'Link'}</span>
+                            <span className="attachment-title-text">{a.title || a.url}</span>
+                          </a>
+                        )}
+                        <button
+                          className="note-attachment-delete"
+                          onClick={() => handleDeleteAttachment(a.id)}
+                          aria-label={`Delete attachment ${a.title || a.url}`}
+                        >
+                          <Icon name="close" size={14} />
+                        </button>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
 
